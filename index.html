@@ -233,7 +233,7 @@
     function shareSong() { window.open(`https://wa.me/?text=${encodeURIComponent("*"+allSongs[currentIdx].title+"*\n\n"+allSongs[currentIdx].lyrics)}`, '_blank'); }
 
     function openContact() { document.getElementById('contactScreen').style.display = 'flex'; }
-    function openAdmin() { if(prompt("PIN:") === "1234") { isAdmin = true; document.getElementById('adminScreen').style.display = 'flex'; refreshAdminUI(); } }
+    function openAdmin() { if(prompt("PIN:") === "Elizar88@2003") { isAdmin = true; document.getElementById('adminScreen').style.display = 'flex'; refreshAdminUI(); } }
 
     function refreshAdminUI() {
         document.getElementById('adminCatList').innerHTML = categories.map((c, i) => `<span class="cat-chip">${c} <button onclick="deleteCategory(${i})">✕</button></span>`).join('');
