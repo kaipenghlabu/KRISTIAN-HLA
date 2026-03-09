@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SacredSongs - Kaipeng Edition</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Crimson+Pro:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root { 
+            --primary: #b08d6d; --admin-dark: #1e293b; 
+            --bg: #f8fafc; --card: #ffffff; --text: #1e293b; --subtext: #64748b;
+            --border: #e2e8f0; --widget-bg: #ffffff;
+        }
+        body.dark-mode {
+            --bg: #0f172a; --card: #1e293b; --text: #f1f5f9; --subtext: #94a3b8;
+            --border: #334155; --widget-bg: #1e293b;
+        }
+        body { font-family: 'Inter', sans-serif; background-color: #2c3e50; margin: 0; display: flex; justify-content: center; padding: 20px 0; transition: 0.3s; }
+        .app-shell { width: 95%; max-width: 500px; background: var(--bg); border-radius: 40px; min-height: 90vh; position: relative; overflow: hidden; box-shadow: 0 25px 50px rgba(0,0,0,0.4); display: flex; flex-direction: column; }
+
+        /* HEADER */
+        .top-header { padding: 20px 20px 5px; display: flex; justify-content: space-between; align-items: center; }
+        .theme-toggle { background: var(--card); border: 1px solid var(--border); padding: 8px; border-radius: 50%; cursor: pointer; font-size: 1.1rem; color: var(--text); }
+        .search-row { display: flex; background: var(--card); border-radius: 15px; padding: 10px 15px; margin: 10px 20px; border: 1px solid var(--border); align-items: center; }
+        .search-row input { border: none; width: 100%; outline: none; margin-left: 10px; background: transparent; color: var(--text); }
+
+        /* WIDGET */
+        .top-widget { background: var(--widget-bg); margin: 10px 20px; padding: 15px; border-radius: 25px; box-shadow: 0 10px 20px rgba(0,0,0,0.05); border: 1px solid var(--border); }
+        .widget-nav { display: grid; grid-template-columns: repeat(5, 1fr); text-align: center; }
+        .nav-box { width: 40px; height: 40px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin: 0 auto 5px; font-size: 1.1rem; cursor: pointer; }
+        .bg-home { background: #fff1f1; color: #ff4d4d; }
+        .bg-all  { background: #f0f7ff; color: #3b82f6; }
+        .bg-cat  { background: #fff9f0; color: #f59e0b; }
+        .bg-fav  { background: #f0fff4; color: #22c55e; }
+        .bg-admin{ background: #f5f3ff; color: #8b5cf6; }
+        .label { font-size: 8px; font-weight: 700; color: var(--subtext); text-transform: uppercase; }
+
+        /* VERSE (HOME) */
+        #verseContainer { display: flex; flex-direction: column; justify-content: center; flex: 1; padding: 20px; text-align: center; }
+        .verse-card { background: linear-gradient(135deg, #b08d6d, #8d6e52); padding: 40px 25px; border-radius: 30px; color: white; box-shadow: 0 15px 30px rgba(176, 141, 109, 0.4); }
+        .verse-text { font-family: 'Crimson Pro'; font-size: 1.6rem; font-style: italic; line-height: 1.3; margin-bottom: 10px; }
+
+        /* LISTS */
+        #mainDisplay { padding: 10px 20px; flex: 1; overflow-y: auto; display: none; }
+        .song-row { background: var(--card); padding: 15px; border-radius: 18px; margin-bottom: 10px; display: flex; align-items: center; border: 1px solid var(--border); color: var(--text); }
+        .song-no { font-weight: 800; color: var(--primary); width: 45px; border-right: 1px solid var(--border); margin-right: 15px; }
+
+        /* SCREENS */
+        .screen { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg); z-index: 1000; display: none; flex-direction: column; }
+        .screen-header { padding: 20px; background: var(--admin-dark); color: white; display: flex; justify-content: space-between; align-items: center; }
+        .nav-arrows { display: flex; justify-content: space-between; align-items: center; padding: 12px 20px; background: var(--card); border-bottom: 1px solid var(--border); }
+        .zoom-btn { background: var(--bg); border: 1px solid var(--border); width: 35px; height: 35px; border-radius: 50%; cursor: pointer; color: var(--text); display: flex; align-items: center; justify-content: center; font-weight: bold; }
+        #vLyrics { padding: 30px; font-family: 'Crimson Pro', serif; line-height: 1.6; white-space: pre-wrap; overflow-y: auto; flex: 1; background: var(--card); color: var(--text); }
+
+        /* ADMIN PANEL */
+        .admin-section { background: var(--card); padding: 15px; border-radius: 15px; margin-bottom: 15px; border: 1px solid var(--border); color: var(--text); }
+        input, textarea, select { width: 100%; padding: 12px; margin: 5px 0; border: 1px solid var(--border); border-radius: 10px; background: var(--bg); color: var(--text); font-family: inherit; }
+        .btn-main { width: 100%; padding: 14px; background: var(--admin-dark); color: white; border: none; border-radius: 12px; font-weight: 700; cursor: pointer; margin-top: 10px; }
+        
+        .app-footer { padding: 15px; text-align: center; font-size: 10px; color: var(--subtext); font-weight: 600; margin-top: auto; }
+    </style>
+</head>
+<body onload="initApp()">
+
+<div class="app-shell">
+    <div class="top-header">
+        <h2 style="margin:0; color:var(--text); font-size: 1.2rem;">SacredSongs</h2>
+        <button class="theme-toggle" onclick="toggleDarkMode()">🌓</button>
+    </div>
+
+    <div class="search-row">
+        <span>🔍</span>
+        <input type="text" id="searchInput" placeholder="Search song..." onkeyup="filterSongs()">
+    </div>
+
+    <div class="top-widget">
+        <div class="widget-nav">
+            <div onclick="goHome()"><div class="nav-box bg-home">🏠</div><div class="label">Home</div></div>
+            <div onclick="renderSongs(allSongs)"><div class="nav-box bg-all">🎶</div><div class="label">Songs</div></div>
+            <div onclick="renderCategories()"><div class="nav-box bg-cat">📂</div><div class="label">Cats</div></div>
+            <div onclick="renderFavourites()"><div class="nav-box bg-fav">⭐</div><div class="label">Favs</div></div>
+            <div onclick="openAdmin()"><div class="nav-box bg-admin">🔑</div><div class="label">Admin</div></div>
+        </div>
+    </div>
+
+    <div id="verseContainer">
+        <div class="verse-card">
+            <div class="verse-text" id="vText">"The Lord is my shepherd; I shall not want."</div>
+            <div class="verse-ref" id="vRef">Psalm 23:1</div>
+        </div>
+    </div>
+
+    <div id="mainDisplay"></div>
+    <div class="app-footer">©2026 Kaipeng Song Book | all rights reserved</div>
+
+    <div id="lyricScreen" class="screen">
+        <div class="screen-header">
+            <h3 id="vTitle" style="margin:0; font-size: 1rem;"></h3>
+            <button onclick="closeScreens()" style="color:white; background:none; border:none; font-size:1.5rem; cursor:pointer;">✕</button>
+        </div>
+        <div class="nav-arrows">
+            <button class="zoom-btn" onclick="navSong(-1)">←</button>
+            <div style="display:flex; align-items:center; gap:12px;">
+                <button class="zoom-btn" onclick="changeZoom(-2)">-</button>
+                <button class="zoom-btn" onclick="changeZoom(2)">+</button>
+                <button onclick="shareSong()" style="border:none; background:none; font-size:1.2rem; cursor:pointer;">📤</button>
+                <button id="favBtn" onclick="toggleFavourite()" style="border:none; background:none; font-size:1.2rem; cursor:pointer;">❤</button>
+            </div>
+            <button class="zoom-btn" onclick="navSong(1)">→</button>
+        </div>
+        <div id="vLyrics"></div>
+    </div>
+
+    <div id="adminScreen" class="screen">
+        <div class="screen-header"><h3 id="adminHeader">Admin Panel</h3><button onclick="closeScreens()" style="color:white; background:none; border:none; cursor:pointer;">✕</button></div>
+        <div style="padding:20px; overflow-y: auto; flex:1;">
+            <div class="admin-section">
+                <h4>Categories</h4>
+                <div id="adminCatList" style="font-size: 0.8rem; margin-bottom: 10px;"></div>
+                <input type="text" id="newCatInput" placeholder="New Category Name">
+                <button onclick="addCategory()" class="btn-main" style="padding:8px;">Add Category</button>
+            </div>
+            <div class="admin-section">
+                <h4 id="songFormTitle">Add/Edit Song</h4>
+                <input type="hidden" id="editSongIdx" value="-1">
+                <input type="text" id="sNo" placeholder="Song Number">
+                <input type="text" id="sTitle" placeholder="Song Title">
+                <select id="sCatSelect"></select>
+                <textarea id="sLyrics" placeholder="Paste lyrics here..." rows="6"></textarea>
+                <button class="btn-main" id="saveSongBtn" onclick="saveSong()">Save Song</button>
+                <button class="btn-main" id="cancelEditBtn" style="display:none; background:#64748b;" onclick="resetSongForm()">Cancel Edit</button>
+            </div>
+            <div class="admin-section">
+                <h4>Home Verse</h4>
+                <input type="text" id="adminVerse" placeholder="Verse text">
+                <input type="text" id="adminRef" placeholder="Reference (e.g. John 3:16)">
+                <button class="btn-main" onclick="updateVerse()">Update Home</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    let allSongs = [{ no: "001", title: "Amazing Grace", cat: "Hymns", lyrics: "Amazing grace! How sweet the sound\nThat saved a wretch like me!", fav: false }];
+    let categories = ["Hymns", "Contemporary", "Choir"];
+    let currentIdx = 0;
+    let currentFontSize = 22;
+    let isAdmin = false;
+
+    function initApp() { goHome(); }
+    function toggleDarkMode() { document.body.classList.toggle('dark-mode'); }
+    function goHome() { 
+        document.getElementById('verseContainer').style.display = 'flex'; 
+        document.getElementById('mainDisplay').style.display = 'none'; 
+        document.getElementById('searchInput').value = "";
+    }
+
+    function renderSongs(list) {
+        document.getElementById('verseContainer').style.display = 'none';
+        const d = document.getElementById('mainDisplay');
+        d.style.display = 'block';
+        d.innerHTML = `<h4 style="color:var(--primary); margin-bottom:10px;">${list.length} Songs</h4>`;
+        list.forEach(s => {
+            const realIdx = allSongs.indexOf(s);
+            const div = document.createElement('div');
+            div.className = 'song-row';
+            div.innerHTML = `
+                <div class="song-no">${s.no}</div>
+                <div style="flex:1" onclick="openLyrics(${realIdx})"><b>${s.title}</b><br><small>${s.cat}</small></div>
+                ${isAdmin ? `<button onclick="editSongEntry(${realIdx})" style="background:var(--primary); border:none; color:white; border-radius:5px; padding:5px 8px; font-size:10px; cursor:pointer;">EDIT</button>` : ''}
+            `;
+            d.appendChild(div);
+        });
+    }
+
+    function renderCategories() {
+        document.getElementById('verseContainer').style.display = 'none';
+        const d = document.getElementById('mainDisplay');
+        d.style.display = 'block'; d.innerHTML = '<h4>Categories</h4>';
+        categories.forEach(c => {
+            const div = document.createElement('div');
+            div.className = 'song-row'; div.style.fontWeight = 'bold';
+            div.innerHTML = `📁 ${c}`;
+            div.onclick = () => renderSongs(allSongs.filter(s => s.cat === c));
+            d.appendChild(div);
+        });
+    }
+
+    function renderFavourites() { renderSongs(allSongs.filter(s => s.fav)); }
+
+    function filterSongs() {
+        let val = document.getElementById('searchInput').value.toLowerCase();
+        if (!val) { goHome(); return; }
+        renderSongs(allSongs.filter(s => s.no.includes(val) || s.title.toLowerCase().includes(val)));
+    }
+
+    function openLyrics(idx) {
+        currentIdx = idx; const s = allSongs[idx];
+        document.getElementById('vTitle').innerText = "#" + s.no + " " + s.title;
+        document.getElementById('vLyrics').innerText = s.lyrics;
+        document.getElementById('vLyrics').style.fontSize = currentFontSize + "px";
+        document.getElementById('lyricScreen').style.display = 'flex';
+        updateFavUI();
+    }
+
+    function changeZoom(delta) {
+        currentFontSize = Math.max(14, Math.min(60, currentFontSize + delta));
+        document.getElementById('vLyrics').style.fontSize = currentFontSize + "px";
+    }
+
+    function navSong(step) {
+        let n = currentIdx + step;
+        if (n >= 0 && n < allSongs.length) openLyrics(n);
+    }
+
+    function shareSong() {
+        const s = allSongs[currentIdx];
+        const msg = `*${s.title}* (#${s.no})\n\n${s.lyrics}\n\nShared via Kaipeng Song Book`;
+        window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank');
+    }
+
+    function toggleFavourite() { allSongs[currentIdx].fav = !allSongs[currentIdx].fav; updateFavUI(); }
+    function updateFavUI() { document.getElementById('favBtn').style.color = allSongs[currentIdx].fav ? "red" : "#ccc"; }
+
+    /* ADMIN LOGIC */
+    function openAdmin() {
+        if(prompt("PIN:") === "1234") {
+            isAdmin = true;
+            document.getElementById('adminScreen').style.display = 'flex';
+            refreshAdminFields();
+        }
+    }
+
+    function refreshAdminFields() {
+        const sel = document.getElementById('sCatSelect');
+        sel.innerHTML = categories.map(c => `<option value="${c}">${c}</option>`).join('');
+        document.getElementById('adminCatList').innerHTML = categories.join(", ");
+    }
+
+    function addCategory() {
+        const val = document.getElementById('newCatInput').value.trim();
+        if(val) { categories.push(val); document.getElementById('newCatInput').value = ""; refreshAdminFields(); alert("Category Added"); }
+    }
+
+    function updateVerse() {
+        const t = document.getElementById('adminVerse').value;
+        const r = document.getElementById('adminRef').value;
+        if(t && r) {
+            document.getElementById('vText').innerText = `"${t}"`;
+            document.getElementById('vRef').innerText = r;
+            alert("Verse Updated!");
+        }
+    }
+
+    function saveSong() {
+        const idx = parseInt(document.getElementById('editSongIdx').value);
+        const data = {
+            no: document.getElementById('sNo').value,
+            title: document.getElementById('sTitle').value,
+            cat: document.getElementById('sCatSelect').value,
+            lyrics: document.getElementById('sLyrics').value,
+            fav: false
+        };
+
+        if(idx === -1) {
+            allSongs.push(data);
+            alert("Song Added!");
+        } else {
+            allSongs[idx] = data;
+            alert("Song Updated!");
+        }
+        allSongs.sort((a,b) => a.no.localeCompare(b.no, undefined, {numeric:true}));
+        resetSongForm();
+    }
+
+    function editSongEntry(idx) {
+        const s = allSongs[idx];
+        document.getElementById('adminScreen').style.display = 'flex';
+        document.getElementById('editSongIdx').value = idx;
+        document.getElementById('sNo').value = s.no;
+        document.getElementById('sTitle').value = s.title;
+        document.getElementById('sCatSelect').value = s.cat;
+        document.getElementById('sLyrics').value = s.lyrics;
+        document.getElementById('songFormTitle').innerText = "Editing Song #" + s.no;
+        document.getElementById('saveSongBtn').innerText = "Update Song";
+        document.getElementById('cancelEditBtn').style.display = "block";
+    }
+
+    function resetSongForm() {
+        document.getElementById('editSongIdx').value = "-1";
+        document.getElementById('sNo').value = "";
+        document.getElementById('sTitle').value = "";
+        document.getElementById('sLyrics').value = "";
+        document.getElementById('songFormTitle').innerText = "Add/Edit Song";
+        document.getElementById('saveSongBtn').innerText = "Save Song";
+        document.getElementById('cancelEditBtn').style.display = "none";
+    }
+
+    function closeScreens() { document.querySelectorAll('.screen').forEach(s => s.style.display = 'none'); goHome(); }
+</script>
+</body>
+</html>
