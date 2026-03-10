@@ -127,7 +127,7 @@
         <div class="w-btn" onclick="navTo('songs')"><div class="w-icon-box bg-songs">🎶</div><div class="w-label">Songs</div></div>
         <div class="w-btn" onclick="navTo('cats')"><div class="w-icon-box bg-cats">📂</div><div class="w-label">Category</div></div>
         <div class="w-btn" onclick="navTo('favs')"><div class="w-icon-box bg-favs">⭐</div><div class="w-label">Favourite</div></div>
-        <div class="w-btn" onclick="navTo('cont')"><div class="w-icon-box bg-cont">ℹ️</div><div class="w-label">Contact</div></div>
+        <div class="w-btn" onclick="navTo('info')"><div class="w-icon-box bg-info">📞</div><div class="w-label">Info</div></div>
     </div>
 
     <div id="lyricScreen" class="screen">
@@ -149,11 +149,11 @@
         </div>
     </div>
 
-    <div id="contScreen" class="screen">
+    <div id="infoScreen" class="screen">
         <div class="screen-header"><h3>Settings</h3><button onclick="hideScreens()" style="background:none; border:none; color:white; font-size:1.5rem;">✕</button></div>
         <div style="padding:20px; overflow-y:auto;">
-            <p style="text-align:center;">Improvement suggestions admin Mrs Elizar Kaipeng:</p>
-            <button class="btn-ui" style="background:#25D366; color:white;" onclick="window.open('https://wa.me/919361094788')">Sent WhatsApp</button>
+            <p style="text-align:center;">Improvement suggestions to developer:</p>
+            <button class="btn-ui" style="background:#25D366; color:white;" onclick="window.open('https://wa.me/919361094788')">Sent WhatsApp </button>
             
             <div id="adminGate" style="margin-top:20px;">
                 <button class="btn-ui" style="background:#1e293b; color:white;" onclick="openModal('pinModal')">Admin Panel</button>
@@ -227,7 +227,7 @@
         else if (page === 'songs') renderList(songs, "All Songs");
         else if (page === 'cats') renderCats();
         else if (page === 'favs') renderList(songs.filter(s => s.fav), "Favourites");
-        else if (page === 'Cont') document.getElementById('ContScreen').style.display = 'flex';
+        else if (page === 'info') document.getElementById('infoScreen').style.display = 'flex';
     }
 
     function renderList(list, title) {
@@ -270,7 +270,7 @@
     function toggleFavFromView() { songs[curIdx].fav = !songs[curIdx].fav; localStorage.setItem('kp_songs', JSON.stringify(songs)); openView(curIdx); }
 
     function login() {
-        if(document.getElementById('pinIn').value === "Elizar@88") {
+        if(document.getElementById('pinIn').value === "1234") {
             isAdmin = true; document.getElementById('adminPanel').style.display = 'block';
             document.getElementById('adminGate').style.display = 'none'; closeModal('pinModal');
         } else { alert("Wrong PIN"); }
@@ -331,5 +331,5 @@
     }
 </script>
 </body>
-                                                                     </html>
-                                                                     
+                </html>
+    ji
