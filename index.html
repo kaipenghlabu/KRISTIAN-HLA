@@ -227,7 +227,7 @@
         else if (page === 'songs') renderList(songs, "All Songs");
         else if (page === 'cats') renderCats();
         else if (page === 'favs') renderList(songs.filter(s => s.fav), "Favourites");
-        else if (page === 'info') document.getElementById('infoScreen').style.display = 'flex';
+        else if (page === 'Cont') document.getElementById('ContScreen').style.display = 'flex';
     }
 
     function renderList(list, title) {
@@ -270,7 +270,7 @@
     function toggleFavFromView() { songs[curIdx].fav = !songs[curIdx].fav; localStorage.setItem('kp_songs', JSON.stringify(songs)); openView(curIdx); }
 
     function login() {
-        if(document.getElementById('pinIn').value === "1234") {
+        if(document.getElementById('pinIn').value === "Elizar@88") {
             isAdmin = true; document.getElementById('adminPanel').style.display = 'block';
             document.getElementById('adminGate').style.display = 'none'; closeModal('pinModal');
         } else { alert("Wrong PIN"); }
