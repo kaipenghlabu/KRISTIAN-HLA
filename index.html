@@ -56,30 +56,9 @@
         .lyrics-bar { display: flex; justify-content: space-between; padding: 12px 25px; background: var(--card-bg); border-bottom: 1px solid var(--border); align-items: center;}
         .tool-btn { width: 42px; height: 42px; border-radius: 50%; background: var(--app-bg); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; cursor: pointer; font-weight: bold; }
 
-        /* FOOTER STYLE */
-        .lyric-footer {
-            padding: 15px;
-            text-align: center;
-            font-size: 10px;
-            font-weight: 600;
-            color: var(--secondary-text);
-            border-top: 1px solid var(--border);
-            background: var(--card-bg);
-            letter-spacing: 0.5px;
-        }
+        .lyric-footer { padding: 15px; text-align: center; font-size: 10px; font-weight: 600; color: var(--secondary-text); border-top: 1px solid var(--border); background: var(--card-bg); letter-spacing: 0.5px; }
 
-        .widget-card { 
-            background: var(--card-bg); 
-            margin: 5px 15px 15px; 
-            padding: 12px 5px; 
-            border-radius: 25px; 
-            display: flex; 
-            justify-content: space-around; 
-            align-items: center; 
-            border: 1px solid var(--border); 
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-            z-index: 50;
-        }
+        .widget-card { background: var(--card-bg); margin: 5px 15px 15px; padding: 12px 5px; border-radius: 25px; display: flex; justify-content: space-around; align-items: center; border: 1px solid var(--border); box-shadow: 0 10px 25px rgba(0,0,0,0.05); z-index: 50; }
         .w-btn { text-align: center; cursor: pointer; flex: 1; }
         .w-icon-box { width: 40px; height: 40px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin: 0 auto 4px; font-size: 1.2rem; }
         .bg-home { background: #fff1f1; color: #ff4d4d; }
@@ -95,7 +74,6 @@
         .btn-ui { width: 100%; padding: 12px; border-radius: 12px; border: none; font-weight: 700; cursor: pointer; margin-bottom: 8px; }
         .adm-input { width: 100%; padding: 12px; margin: 5px 0 10px; border-radius: 12px; border: 1px solid var(--border); background: var(--app-bg); color: var(--primary-text); box-sizing: border-box; }
         .adm-card { background: var(--card-bg); padding: 15px; border-radius: 20px; margin-bottom: 15px; border: 1px solid var(--border); }
-        .cat-item { display: flex; justify-content: space-between; align-items: center; padding: 10px; background: var(--app-bg); border-radius: 10px; margin-bottom: 5px; border: 1px solid var(--border); }
     </style>
 </head>
 <body onload="initApp()">
@@ -143,10 +121,7 @@
             <div class="tool-btn" onclick="moveSong(1)">→</div>
         </div>
         <div id="lContent" style="flex:1; overflow-y:auto; padding:30px; text-align:center; white-space:pre-wrap; font-family:'Crimson Pro'; line-height:1.6; font-size:20px;"></div>
-        
-        <div class="lyric-footer">
-            © 2026 KRISTIAN HLA BU | KAIPENG EDITION
-        </div>
+        <div class="lyric-footer">© 2026 KRISTIAN HLA BU | KAIPENG EDITION</div>
     </div>
 
     <div id="infoScreen" class="screen">
@@ -154,23 +129,9 @@
         <div style="padding:20px; overflow-y:auto;">
             <p style="text-align:center;">Improvement suggestions:</p>
             <button class="btn-ui" style="background:#25D366; color:white;" onclick="window.open('https://wa.me/919361094788')">Sent WhatsApp</button>
-            
-            <div id="adminGate" style="margin-top:20px;">
-                <button class="btn-ui" style="background:#1e293b; color:white;" onclick="openModal('pinModal')">Admin Panel</button>
-            </div>
-
+            <div id="adminGate" style="margin-top:20px;"><button class="btn-ui" style="background:#1e293b; color:white;" onclick="openModal('pinModal')">Admin Panel</button></div>
             <div id="adminPanel" style="display:none; margin-top:15px;">
                 <button class="btn-ui" style="background:#b08d6d; color:white;" onclick="openEditor(-1)">+ Add New Song</button>
-                <div class="adm-card">
-                    <h4>Home Verse</h4>
-                    <input id="vTextIn" class="adm-input" placeholder="Verse..."><input id="vRefIn" class="adm-input" placeholder="Ref...">
-                    <button class="btn-ui" style="background:#1e293b; color:white;" onclick="saveVerse()">Update Verse</button>
-                </div>
-                <div class="adm-card">
-                    <h4>Category Manager</h4>
-                    <div id="catList"></div>
-                    <input id="catIn" class="adm-input" placeholder="New category..."><button class="btn-ui" style="background:#1e293b; color:white;" onclick="addCat()">Add</button>
-                </div>
                 <div class="adm-card">
                     <h4>Backup</h4>
                     <button class="btn-ui" style="background:#10b981; color:white;" onclick="exportData()">Export (.json)</button>
@@ -206,6 +167,7 @@
 </div>
 
 <script>
+    // --- DATABASE & LOGIC ---
     let songs = JSON.parse(localStorage.getItem('kp_songs')) || [];
     let cats = JSON.parse(localStorage.getItem('kp_cats')) || ["Hymns", "Choir"];
     let verse = JSON.parse(localStorage.getItem('kp_verse')) || { text: "The Lord is my shepherd.", ref: "Psalm 23:1" };
@@ -214,9 +176,8 @@
     function initApp() {
         document.getElementById('vTxt').innerText = verse.text;
         document.getElementById('vRef').innerText = verse.ref;
-        document.getElementById('vTextIn').value = verse.text;
-        document.getElementById('vRefIn').value = verse.ref;
         updateCatUI();
+        registerOfflineService();
     }
 
     function navTo(page) {
@@ -277,19 +238,7 @@
         document.getElementById('pinIn').value = "";
     }
     function logout() { isAdmin = false; document.getElementById('adminPanel').style.display = 'none'; document.getElementById('adminGate').style.display = 'block'; navTo('home'); }
-    function saveVerse() { verse = { text: document.getElementById('vTextIn').value, ref: document.getElementById('vRefIn').value }; localStorage.setItem('kp_verse', JSON.stringify(verse)); initApp(); alert("Home Verse Updated"); }
-
-    function updateCatUI() {
-        document.getElementById('edC').innerHTML = cats.map(c => `<option value="${c}">${c}</option>`).join('');
-        document.getElementById('catList').innerHTML = cats.map((c, i) => `
-            <div class="cat-item"><span>${c}</span>
-                <div><button onclick="editCat(${i})" style="border:none; background:none;">✎</button>
-                <button onclick="delCat(${i})" style="border:none; background:none; color:red; margin-left:10px;">✕</button></div>
-            </div>`).join('');
-    }
-    function addCat() { let v = document.getElementById('catIn').value; if(v){ cats.push(v); localStorage.setItem('kp_cats', JSON.stringify(cats)); updateCatUI(); document.getElementById('catIn').value=''; }}
-    function editCat(i) { let n = prompt("Rename:", cats[i]); if(n){ cats[i]=n; localStorage.setItem('kp_cats', JSON.stringify(cats)); updateCatUI(); }}
-    function delCat(i) { if(confirm("Delete?")){ cats.splice(i,1); localStorage.setItem('kp_cats', JSON.stringify(cats)); updateCatUI(); }}
+    function updateCatUI() { document.getElementById('edC').innerHTML = cats.map(c => `<option value="${c}">${c}</option>`).join(''); }
 
     function openEditor(idx) {
         document.getElementById('edIdx').value = idx;
@@ -305,6 +254,7 @@
         }
         openModal('songModal');
     }
+
     function saveSong() {
         let idx = parseInt(document.getElementById('edIdx').value);
         let s = { no: document.getElementById('edNo').value, title: document.getElementById('edT').value, cat: document.getElementById('edC').value, lyrics: document.getElementById('edL').value, fav: idx > -1 ? songs[idx].fav : false };
@@ -312,12 +262,14 @@
         if(idx > -1) songs[idx] = s; else songs.push(s);
         localStorage.setItem('kp_songs', JSON.stringify(songs)); closeModal('songModal'); renderList(songs, "All Songs");
     }
+
     function delSong() { let idx = document.getElementById('edIdx').value; if(confirm("Delete?")){ songs.splice(idx,1); localStorage.setItem('kp_songs', JSON.stringify(songs)); closeModal('songModal'); renderList(songs, "All Songs"); }}
 
     function openModal(id) { document.getElementById(id).style.display = 'flex'; }
     function closeModal(id) { document.getElementById(id).style.display = 'none'; }
     function hideScreens() { document.getElementById('lyricScreen').style.display = 'none'; document.getElementById('infoScreen').style.display = 'none'; }
     function handleSearch() { let v = document.getElementById('searchInput').value.toLowerCase(); if(v) renderList(songs.filter(s => s.no.includes(v) || s.title.toLowerCase().includes(v)), "Search Results"); }
+    
     function exportData() {
         const b = new Blob([JSON.stringify({songs, cats, verse})], {type:"application/json"});
         const a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = "song_backup.json"; a.click();
@@ -325,11 +277,26 @@
     function importData(e) {
         const r = new FileReader(); r.onload = (ev) => {
             const d = JSON.parse(ev.target.result); songs = d.songs; cats = d.cats; verse = d.verse;
-            localStorage.setItem('kp_songs', JSON.stringify(songs)); localStorage.setItem('kp_cats', JSON.stringify(cats)); localStorage.setItem('kp_verse', JSON.stringify(verse));
-            location.reload();
+            localStorage.setItem('kp_songs', JSON.stringify(songs)); location.reload();
         }; r.readAsText(e.target.files[0]);
+    }
+
+    // --- EMBEDDED SERVICE WORKER FOR OFFLINE ---
+    function registerOfflineService() {
+        if ('serviceWorker' in navigator) {
+            const swCode = `
+                const CACHE_NAME = 'kp-v1';
+                self.addEventListener('install', e => {
+                    e.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(['./', window.location.href])));
+                });
+                self.addEventListener('fetch', e => {
+                    e.respondWith(caches.match(e.request).then(res => res || fetch(e.request)));
+                });
+            `;
+            const blob = new Blob([swCode], { type: 'application/javascript' });
+            navigator.serviceWorker.register(URL.createObjectURL(blob));
+        }
     }
 </script>
 </body>
-                                                                                            </html>
-
+</html>
