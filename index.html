@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>KAIPENG HLA BU - UPDATED CONTACT</title>
+    <title>KAIPENG HLA BU - UPDATED FOOTER</title>
     <style>
         :root { 
             --app-bg: #f8fafc; --card-bg: #ffffff; --primary: #1e293b;
@@ -68,6 +68,18 @@
             background: #e7fce3; border: 1px solid #c3e6cb; padding: 20px; border-radius: 12px; margin-top: 20px; text-align: center;
         }
         
+        /* New Footer Style */
+        .viewer-footer {
+            padding: 15px;
+            text-align: center;
+            font-size: 0.75rem;
+            font-weight: bold;
+            color: var(--accent);
+            border-top: 1px solid var(--border);
+            background: var(--card-bg);
+            letter-spacing: 1px;
+        }
+        
         #favBtn { transition: 0.2s; font-size: 1.4rem; }
         .is-fav { color: #ff4757 !important; opacity: 1 !important; filter: drop-shadow(0 0 5px rgba(255,71,87,0.3)); }
     </style>
@@ -118,6 +130,10 @@
         <div style="flex:1; overflow:auto; padding:25px; text-align:center;">
             <div id="zoomBox"></div>
         </div>
+        <!-- NEW FOOTER HERE -->
+        <div class="viewer-footer">
+            © 2026 KRISTIAN HLA BU | KAIPENG EDITION
+        </div>
     </div>
 
     <!-- Admin Panel -->
@@ -142,7 +158,6 @@
                 <input type="file" id="importIn" style="display:none;" onchange="importData(this)">
                 <button class="btn" style="background:#ef4444; color:white; margin-top:20px;" onclick="doLogout()">Logout Admin</button>
             </div>
-            <!-- UPDATED WHATSAPP SECTION -->
             <div class="contact-box">
                 <p style="font-size: 1.1rem; color: #155724; margin-top:0;"><b>Found a mistake?</b><br>Suggest improvements</p>
                 <button onclick="window.open('https://wa.me/919361094788?text=Song%20Improvement')" class="btn" style="background:var(--whatsapp); color:white; margin:0;">
@@ -153,9 +168,37 @@
     </div>
 </div>
 
-<!-- MODALS REMAIN SAME -->
-<div id="pinPop" class="overlay"><div class="modal">...</div></div>
-<div id="editPop" class="overlay"><div class="modal">...</div></div>
+<!-- MODALS -->
+<div id="pinPop" class="overlay">
+    <div class="modal">
+        <h3 style="border:none; text-align:center;">Enter Admin PIN</h3>
+        <input type="password" id="pinField" class="input" placeholder="****" style="text-align:center; font-size:2rem; letter-spacing:10px;">
+        <button onclick="checkPin()" class="btn" style="background:var(--primary); color:white;">Unlock</button>
+        <button onclick="hide('pinPop')" class="btn" style="background:none;">Cancel</button>
+    </div>
+</div>
+
+<div id="editPop" class="overlay">
+    <div class="modal">
+        <h3 id="editLabel" style="border:none;">Song Editor</h3>
+        <input type="hidden" id="editIdx">
+        <input id="eNo" class="input" placeholder="Song Number">
+        <input id="eTitle" class="input" placeholder="Song Title">
+        <select id="eCat" class="input"></select>
+        <div style="margin-bottom:15px; display:flex; gap:20px; justify-content:center; font-size:1.1rem;">
+            <label><input type="radio" name="m" value="text" checked onchange="setMode('text')"> 📝 Text</label>
+            <label><input type="radio" name="m" value="img" onchange="setMode('img')"> 🖼️ Image</label>
+        </div>
+        <textarea id="eLyrics" class="input" rows="8" placeholder="Type lyrics here..."></textarea>
+        <div id="eImgArea" style="display:none;">
+            <input type="file" accept="image/*" onchange="handleImg(this)" class="input">
+            <img id="ePreview" style="width:100%; border-radius:5px; margin-top:10px;">
+        </div>
+        <button onclick="saveSong()" class="btn" style="background:var(--primary); color:white;">Save Song</button>
+        <button id="delBtn" onclick="delSong()" class="btn" style="background:red; color:white; display:none;">Delete</button>
+        <button onclick="hide('editPop')" class="btn" style="background:none;">Cancel</button>
+    </div>
+</div>
 
 <script>
     let songs = JSON.parse(localStorage.getItem('kp_songs')) || [];
