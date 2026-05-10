@@ -3,311 +3,306 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>KAIPENG HLA BU - UPDATED FOOTER</title>
+    <title>KAIPENG HLA BU - PRO</title>
     <style>
         :root { 
             --app-bg: #f8fafc; --card-bg: #ffffff; --primary: #1e293b;
-            --accent: #b08d6d; --border: #e2e8f0; --text: #1e293b; --whatsapp: #25D366;
+            --accent: #b08d6d; --border: #e2e8f0; --text: #1e293b; --whatsapp: #25D366; --danger: #ef4444;
         }
         .dark-mode {
             --app-bg: #0f172a; --card-bg: #1e293b; --border: #334155; --text: #f1f5f9;
         }
-        
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body { 
-            font-family: -apple-system, sans-serif; background: #2c3e50; margin: 0; 
-            height: 100dvh; display: flex; justify-content: center; overflow: hidden; color: var(--text);
-        }
-
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; outline: none; }
+        body { font-family: -apple-system, system-ui, sans-serif; background: #2c3e50; margin: 0; height: 100dvh; display: flex; justify-content: center; overflow: hidden; color: var(--text); }
         .shell { width: 100%; max-width: 450px; height: 100%; background: var(--app-bg); display: flex; flex-direction: column; position: relative; }
-        
-        /* Headers */
         .header { padding: 20px; flex-shrink: 0; z-index: 10; }
-        h3 { font-size: 1.6rem; margin: 15px 0; border-left: 5px solid var(--accent); padding-left: 10px; }
-
-        #mainScroll { flex: 1; overflow-y: auto; padding: 0 20px 80px; }
-        
-        /* List Items */
-        .item { 
-            background: var(--card-bg); padding: 18px; border-radius: 12px; 
-            margin-bottom: 12px; border: 1px solid var(--border);
-            display: flex; align-items: center; cursor: pointer; font-size: 1.1rem;
-        }
-        .item:active { opacity: 0.7; transform: scale(0.98); }
+        #mainScroll { flex: 1; overflow-y: auto; padding: 0 20px 100px; scroll-behavior: smooth; }
+        .item { background: var(--card-bg); padding: 18px; border-radius: 12px; margin-bottom: 12px; border: 1px solid var(--border); display: flex; align-items: center; cursor: pointer; }
         .item-no { width: 50px; font-weight: 800; color: var(--accent); font-size: 1.2rem; }
-
-        /* Navigation Bar */
-        .tabs { 
-            position: absolute; bottom: 0; width: 100%; background: var(--card-bg);
-            display: flex; border-top: 1px solid var(--border); padding: 12px 0; z-index: 1000;
-        }
-        .tab { flex: 1; text-align: center; font-size: 12px; font-weight: 900; cursor: pointer; text-transform: uppercase; }
-        .tab span { font-size: 1.4rem; display: block; margin-bottom: 2px; }
-
-        .full-screen { 
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
-            background: var(--app-bg); z-index: 5000; display: none; flex-direction: column; 
-        }
-        .fs-header { background: var(--primary); color: white; padding: 15px; display: flex; justify-content: space-between; align-items: center; font-size: 1.2rem; }
-
-        .btn { 
-            width: 100%; padding: 15px; border-radius: 10px; border: none; 
-            font-weight: bold; cursor: pointer; margin-bottom: 10px; font-size: 1.1rem;
-        }
-        .input { width: 100%; padding: 15px; margin: 5px 0 15px; border-radius: 8px; border: 1px solid var(--border); font-size: 1.1rem; }
-
-        .overlay { 
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background: rgba(0,0,0,0.8); z-index: 9999; display: none; align-items: center; justify-content: center; 
-        }
-        .modal { background: var(--card-bg); width: 92%; padding: 25px; border-radius: 15px; max-height: 85vh; overflow-y: auto; }
-
-        #zoomBox { transition: transform 0.2s ease; transform-origin: top center; width: 100%; }
-        
-        .contact-box {
-            background: #e7fce3; border: 1px solid #c3e6cb; padding: 20px; border-radius: 12px; margin-top: 20px; text-align: center;
-        }
-        
-        /* New Footer Style */
-        .viewer-footer {
-            padding: 15px;
-            text-align: center;
-            font-size: 0.75rem;
-            font-weight: bold;
-            color: var(--accent);
-            border-top: 1px solid var(--border);
-            background: var(--card-bg);
-            letter-spacing: 1px;
-        }
-        
-        #favBtn { transition: 0.2s; font-size: 1.4rem; }
-        .is-fav { color: #ff4757 !important; opacity: 1 !important; filter: drop-shadow(0 0 5px rgba(255,71,87,0.3)); }
+        .tabs { position: absolute; bottom: 0; width: 100%; background: var(--card-bg); display: flex; border-top: 1px solid var(--border); padding: 12px 0; z-index: 1000; }
+        .tab { flex: 1; text-align: center; font-size: 10px; font-weight: 900; cursor: pointer; text-transform: uppercase; color: var(--text); opacity: 0.4; }
+        .tab.active { opacity: 1; color: var(--accent); }
+        .tab span { font-size: 1.5rem; display: block; margin-bottom: 2px; }
+        .btn { width: 100%; padding: 15px; border-radius: 10px; border: none; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; transition: 0.3s; }
+        .input, select, textarea { width: 100%; padding: 15px; margin: 5px 0 15px; border-radius: 8px; border: 1px solid var(--border); font-size: 1rem; background: var(--card-bg); color: var(--text); font-family: inherit; }
+        textarea { height: 120px; }
+        .full-screen { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: var(--app-bg); z-index: 5000; display: none; flex-direction: column; }
+        .fs-header { background: var(--primary); color: white; padding: 15px; display: flex; justify-content: space-between; align-items: center; }
+        .admin-section { background: var(--card-bg); padding: 15px; border-radius: 12px; border: 1px solid var(--border); margin-bottom: 20px; }
+        .footer-text { padding: 15px; text-align: center; font-size: 0.7rem; opacity: 0.5; border-top: 1px solid var(--border); }
+        .viewer-nav { display: flex; justify-content: space-between; align-items: center; padding: 10px 15px; background: var(--card-bg); border-bottom: 1px solid var(--border); }
+        .v-btn { padding: 8px 12px; border-radius: 8px; border: 1px solid var(--border); background: var(--app-bg); color: var(--text); font-weight: bold; cursor: pointer; }
+        #vText, #vImage { transition: all 0.2s ease-out; transform-origin: top center; }
+        #vImage { width: 100%; border-radius: 10px; margin-top: 20px; display: block; }
+        #saveMsg { color: #22c55e; font-weight: bold; display: none; margin-top: 10px; text-align: center; font-size: 1.1rem; }
     </style>
 </head>
-<body onload="startup()">
+<body onload="initApp()">
 
 <div class="shell">
-    <div class="header">
+    <div class="header" id="appHeader">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
-            <b style="font-size:1.8rem;">HLA BU</b>
-            <button onclick="document.body.classList.toggle('dark-mode')" style="background:none; border:none; font-size:1.8rem;">🌓</button>
+            <b style="font-size:1.8rem; letter-spacing:-1px;">HLA BU</b>
+            <div onclick="toggleTheme()" style="cursor:pointer; font-size:1.5rem;">🌓</div>
         </div>
-        <input type="text" id="search" placeholder="Search number or title..." oninput="doSearch()" class="input" style="margin:0;">
+        <input type="text" id="search" placeholder="Search by number or title..." oninput="handleSearch()" class="input" style="margin:0;">
     </div>
 
     <div id="mainScroll">
-        <div id="homeUI" style="text-align:center; padding:40px 0;">
-            <div style="background:var(--accent); color:white; padding:50px 20px; border-radius:20px;">
-                <h2 style="font-style:italic; font-size: 1.8rem; margin:0;">"Lalpa chu fak rawh u"</h2>
+        <div id="homeUI">
+            <div style="background:var(--accent); color:white; padding:60px 20px; border-radius:24px; text-align:center;">
+                <h2 id="displayQuote" style="font-style:italic; font-size: 1.6rem; margin:0;">"Lalpa chu hlim takin fak rawh u"</h2>
+            </div>
+            
+            <div style="margin-top:25px; display: grid; grid-template-columns: 1fr 1fr; gap: 15px;" id="homeGrid"></div>
+
+            <div class="footer-text" style="border:none;">© 2026 KAIPENG HLA BU | KAIPENG EDITION</div>
+        </div>
+
+        <div id="settingsUI" style="display:none; padding-top: 10px;">
+            <h3>Settings</h3>
+            <button onclick="toggleTheme()" class="btn" style="background:var(--card-bg); border:1px solid var(--border); margin-bottom:15px;">Switch Theme</button>
+            <div class="admin-section" style="padding:15px; border-color:var(--whatsapp);">
+                <b style="color:var(--whatsapp);">Song Improvement</b>
+                <button onclick="window.open('https://wa.me/919361094788?text=Suggestion')" class="btn" style="background:var(--whatsapp); color:white; margin-top:10px;">Contact 9361094788</button>
+            </div>
+            <button onclick="nav('admin')" class="btn" style="background:var(--primary); color:white;">Admin Panel</button>
+        </div>
+
+        <div id="adminLoginUI" style="display:none; text-align:center; padding-top:40px;">
+            <h3>Admin Access</h3>
+            <input type="password" id="adminPass" placeholder="Enter Password" class="input">
+            <button onclick="checkPass()" class="btn" style="background:var(--accent); color:white;">Login</button>
+        </div>
+
+        <div id="adminPanelUI" style="display:none; padding-bottom: 50px;">
+            <div style="display:flex; justify-content:space-between; align-items:center;"><h3>Dashboard</h3><button onclick="logout()" style="background:var(--danger); color:white; border:none; padding:5px 10px; border-radius:5px;">Logout</button></div>
+            
+            <div class="admin-section">
+                <b>Home Quote</b>
+                <input type="text" id="quoteInput" placeholder="Enter Home Quote" class="input">
+                <button onclick="updateQuote()" class="btn" style="background:var(--primary); color:white;">Update Quote</button>
+            </div>
+
+            <div class="admin-section">
+                <b>Add Song</b>
+                <input type="number" id="sNo" placeholder="Song Number" class="input">
+                <input type="text" id="sTitle" placeholder="Song Title" class="input">
+                <select id="sCat"></select>
+                <textarea id="sLyrics" placeholder="Paste Lyrics Here..."></textarea>
+                <input type="file" id="sImg" accept="image/*" class="input">
+                <button onclick="saveSong()" class="btn" id="saveBtn" style="background:var(--accent); color:white;">Save Song</button>
+                <div id="saveMsg">Done ✅ Saved Successfully</div>
+            </div>
+
+            <div class="admin-section">
+                <b>Category Editor</b>
+                <input type="text" id="newCatName" placeholder="New Category Name" class="input">
+                <button onclick="addCategory()" class="btn" style="background:var(--primary); color:white;">Add Category</button>
+                <div id="catList" style="display:flex; flex-wrap:wrap; gap:5px; margin-top:10px;"></div>
+            </div>
+
+            <div class="admin-section">
+                <b>Data Management</b>
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+                    <button onclick="exportData()" class="btn" style="background:#4ade80; color:white;">Output (Export)</button>
+                    <button onclick="document.getElementById('importFile').click()" class="btn" style="background:#60a5fa; color:white;">Import File</button>
+                </div>
+                <input type="file" id="importFile" style="display:none;" onchange="importData(event)">
             </div>
         </div>
-        <div id="listUI"></div>
+        <div id="listUI" style="display:none;"></div>
     </div>
 
     <div class="tabs">
-        <div class="tab" onclick="nav('home')"><span>🏠</span>HOME</div>
-        <div class="tab" onclick="nav('songs')"><span>🎶</span>SONGS</div>
-        <div class="tab" onclick="nav('cats')"><span>📂</span>CATS</div>
-        <div class="tab" onclick="nav('favs')"><span>❤️</span>FAVS</div>
-        <div class="tab" onclick="nav('admin')"><span>⚙️</span>ADMIN</div>
+        <div class="tab" id="nav-home" onclick="nav('home')"><span>🏠</span>HOME</div>
+        <div class="tab" id="nav-songs" onclick="nav('songs')"><span>🎶</span>SONGS</div>
+        <div class="tab" id="nav-favs" onclick="nav('favs')"><span>❤️</span>FAVS</div>
+        <div class="tab" id="nav-settings" onclick="nav('settings')"><span>⚙️</span>SITTING</div>
     </div>
 
-    <!-- Viewer -->
     <div id="viewer" class="full-screen">
         <div class="fs-header">
-            <span id="vTitle" style="font-weight:bold;"></span>
-            <button onclick="closeAll()" style="color:white; background:none; border:none; font-size:1.8rem;">✕</button>
-        </div>
-        <div style="display:flex; justify-content:space-between; padding:10px; background:var(--card-bg); border-bottom:1px solid var(--border);">
-            <button onclick="move(-1)" class="btn" style="width:60px; margin:0; background:var(--app-bg);">←</button>
-            <div style="display:flex; gap:8px;">
-                <button onclick="zoom(-0.2)" class="btn" style="width:55px; margin:0; background:var(--app-bg);">A-</button>
-                <button onclick="zoom(0.2)" class="btn" style="width:55px; margin:0; background:var(--app-bg);">A+</button>
-                <button id="favBtn" onclick="toggleFav()" class="btn" style="width:55px; margin:0; background:var(--app-bg); opacity: 0.3;">❤️</button>
-            </div>
-            <button onclick="move(1)" class="btn" style="width:60px; margin:0; background:var(--app-bg);">→</button>
-        </div>
-        <div style="flex:1; overflow:auto; padding:25px; text-align:center;">
-            <div id="zoomBox"></div>
-        </div>
-        <!-- NEW FOOTER HERE -->
-        <div class="viewer-footer">
-            © 2026 KRISTIAN HLA BU | KAIPENG EDITION
-        </div>
-    </div>
-
-    <!-- Admin Panel -->
-    <div id="adminPanel" class="full-screen">
-        <div class="fs-header"><b>Admin Tools</b><button onclick="closeAll()" style="color:white; background:none; border:none; font-size:1.8rem;">✕</button></div>
-        <div style="padding:20px; overflow-y:auto;">
-            <div id="locked">
-                <button class="btn" style="background:var(--primary); color:white; height:70px; font-size:1.3rem;" onclick="pop('pinPop')">Admin Login</button>
-            </div>
-            <div id="unlocked" style="display:none;">
-                <button class="btn" style="background:var(--accent); color:white;" onclick="openEdit(-1)">+ Add New Song</button>
-                <div style="background:var(--card-bg); padding:15px; border-radius:10px; border:1px solid var(--border); margin:15px 0;">
-                    <b style="font-size:14px; color:var(--accent); text-transform:uppercase;">Category Manager</b>
-                    <div id="catAdminList" style="margin:10px 0;"></div>
-                    <div style="display:flex; gap:5px;">
-                        <input id="catNewIn" class="input" placeholder="New Cat Name" style="margin:0;">
-                        <button onclick="saveCat()" class="btn" style="width:80px; margin:0; background:var(--primary); color:white;">Add</button>
-                    </div>
-                </div>
-                <button class="btn" style="background:#10b981; color:white;" onclick="exportData()">Export Backup</button>
-                <button class="btn" style="background:#3b82f6; color:white;" onclick="document.getElementById('importIn').click()">Import Backup</button>
-                <input type="file" id="importIn" style="display:none;" onchange="importData(this)">
-                <button class="btn" style="background:#ef4444; color:white; margin-top:20px;" onclick="doLogout()">Logout Admin</button>
-            </div>
-            <div class="contact-box">
-                <p style="font-size: 1.1rem; color: #155724; margin-top:0;"><b>Found a mistake?</b><br>Suggest improvements</p>
-                <button onclick="window.open('https://wa.me/919361094788?text=Song%20Improvement')" class="btn" style="background:var(--whatsapp); color:white; margin:0;">
-                    💬 Contact Developer
-                </button>
+            <span id="vTitle"></span>
+            <div style="display:flex; align-items:center; gap:15px;">
+                <span id="vFavBtn" onclick="toggleFav()" style="cursor:pointer;">🤍</span>
+                <button onclick="closeViewer()" style="color:white; background:none; border:none; font-size:1.5rem;">✕</button>
             </div>
         </div>
-    </div>
-</div>
-
-<!-- MODALS -->
-<div id="pinPop" class="overlay">
-    <div class="modal">
-        <h3 style="border:none; text-align:center;">Enter Admin PIN</h3>
-        <input type="password" id="pinField" class="input" placeholder="****" style="text-align:center; font-size:2rem; letter-spacing:10px;">
-        <button onclick="checkPin()" class="btn" style="background:var(--primary); color:white;">Unlock</button>
-        <button onclick="hide('pinPop')" class="btn" style="background:none;">Cancel</button>
-    </div>
-</div>
-
-<div id="editPop" class="overlay">
-    <div class="modal">
-        <h3 id="editLabel" style="border:none;">Song Editor</h3>
-        <input type="hidden" id="editIdx">
-        <input id="eNo" class="input" placeholder="Song Number">
-        <input id="eTitle" class="input" placeholder="Song Title">
-        <select id="eCat" class="input"></select>
-        <div style="margin-bottom:15px; display:flex; gap:20px; justify-content:center; font-size:1.1rem;">
-            <label><input type="radio" name="m" value="text" checked onchange="setMode('text')"> 📝 Text</label>
-            <label><input type="radio" name="m" value="img" onchange="setMode('img')"> 🖼️ Image</label>
+        <div class="viewer-nav">
+            <button class="v-btn" onclick="navSong(-1)">◀ Prev</button>
+            <div style="display:flex; gap:10px;">
+                <button class="v-btn" onclick="zoom(-0.1)">A-</button>
+                <button class="v-btn" onclick="zoom(0.1)">A+</button>
+            </div>
+            <button class="v-btn" onclick="navSong(1)">Next ▶</button>
         </div>
-        <textarea id="eLyrics" class="input" rows="8" placeholder="Type lyrics here..."></textarea>
-        <div id="eImgArea" style="display:none;">
-            <input type="file" accept="image/*" onchange="handleImg(this)" class="input">
-            <img id="ePreview" style="width:100%; border-radius:5px; margin-top:10px;">
+        <div id="vScroll" style="flex:1; overflow-x:hidden; overflow-y:auto; padding:20px; text-align:center;">
+            <div id="vContent"></div>
         </div>
-        <button onclick="saveSong()" class="btn" style="background:var(--primary); color:white;">Save Song</button>
-        <button id="delBtn" onclick="delSong()" class="btn" style="background:red; color:white; display:none;">Delete</button>
-        <button onclick="hide('editPop')" class="btn" style="background:none;">Cancel</button>
     </div>
 </div>
 
 <script>
     let songs = JSON.parse(localStorage.getItem('kp_songs')) || [];
-    let cats = JSON.parse(localStorage.getItem('kp_cats')) || ["Hymn", "Choir", "Youth"];
-    let authed = false, currentIdx = -1, viewList = [], scale = 1, tempImg = "";
+    let cats = JSON.parse(localStorage.getItem('kp_cats')) || ["Hymn", "Chorus", "Youth", "Christmas"];
+    let homeQuote = localStorage.getItem('kp_quote') || `"Lalpa chu hlim takin fak rawh u"`;
+    let isAdmin = sessionStorage.getItem('isAdmin') === 'true';
+    let currentSongIndex = -1;
+    let currentScale = 1.1;
 
-    function startup() { updateCatDropdown(); viewList = [...songs]; }
+    function initApp() { 
+        renderCategories(); 
+        document.getElementById('displayQuote').innerText = homeQuote;
+        document.getElementById('quoteInput').value = homeQuote;
+        nav('home'); 
+    }
+    
+    function toggleTheme() { document.body.classList.toggle('dark-mode'); }
 
     function nav(p) {
-        document.getElementById('homeUI').style.display = (p==='home') ? 'block' : 'none';
-        document.getElementById('listUI').style.display = (p==='home') ? 'none' : 'block';
-        closeAll();
-        if(p==='songs') { viewList = [...songs]; render(viewList, "All Songs"); }
-        if(p==='cats') renderCats();
-        if(p==='favs') { viewList = songs.filter(s => s.isFav === true); render(viewList, "My Favorites ❤️"); }
-        if(p==='admin') document.getElementById('adminPanel').style.display = 'flex';
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        if(document.getElementById('nav-'+p)) document.getElementById('nav-'+p).classList.add('active');
+        const views = ['homeUI', 'listUI', 'settingsUI', 'adminLoginUI', 'adminPanelUI'];
+        views.forEach(v => document.getElementById(v).style.display = 'none');
+        document.getElementById('appHeader').style.display = (p === 'admin') ? 'none' : 'block';
+        
+        if(p === 'home') { document.getElementById('homeUI').style.display = 'block'; updateHomeGrid(); }
+        else if(p === 'settings') document.getElementById('settingsUI').style.display = 'block';
+        else if(p === 'admin') {
+            document.getElementById('adminPanelUI').style.display = isAdmin ? 'block' : 'none';
+            document.getElementById('adminLoginUI').style.display = isAdmin ? 'none' : 'block';
+        }
+        else {
+            document.getElementById('listUI').style.display = 'block';
+            if(p === 'songs') renderList(songs, "All Songs");
+            if(p === 'favs') renderList(songs.filter(s => s.isFav), "Favorites ❤️");
+        }
     }
 
-    function render(data, title) {
+    function updateQuote() {
+        const newQuote = document.getElementById('quoteInput').value.trim();
+        if(newQuote) {
+            homeQuote = newQuote;
+            localStorage.setItem('kp_quote', homeQuote);
+            document.getElementById('displayQuote').innerText = homeQuote;
+            alert("Quote Updated!");
+        }
+    }
+
+    function updateHomeGrid() {
+        const grid = document.getElementById('homeGrid');
+        grid.innerHTML = `<div class="item" onclick="nav('songs')" style="flex-direction:column; padding:20px;"><span>🎶</span><b>ALL</b></div>`;
+        cats.forEach(c => grid.innerHTML += `<div class="item" onclick="viewCat('${c}')" style="flex-direction:column; padding:20px;"><span>📂</span><b>${c.toUpperCase()}</b></div>`);
+    }
+
+    function viewCat(c) { nav('list'); renderList(songs.filter(s => s.cat === c), c); }
+
+    function renderList(data, title) {
         const box = document.getElementById('listUI');
-        box.innerHTML = `<h3>${title}</h3>`;
-        if(data.length === 0) box.innerHTML += `<p style="text-align:center; opacity:0.5; margin-top:20px; font-size:1.2rem;">No songs found.</p>`;
-        data.forEach(s => {
-            let d = document.createElement('div');
-            d.className = 'item';
-            d.innerHTML = `<div class="item-no">${s.no}</div><div style="flex:1"><b>${s.type==='img'?'🖼️ ':''}${s.title}</b></div>`;
-            d.onclick = () => { viewList = data; openView(songs.indexOf(s)); };
-            if(authed) {
-                let e = document.createElement('span'); e.innerHTML = "✎"; e.style.padding="10px"; e.style.fontSize="1.3rem";
-                e.onclick = (ev) => { ev.stopPropagation(); openEdit(songs.indexOf(s)); };
-                d.appendChild(e);
-            }
+        box.innerHTML = `<h3 style="margin-bottom:20px;">${title}</h3>`;
+        const sorted = [...data].sort((a,b) => a.no - b.no);
+        sorted.forEach((s) => {
+            let d = document.createElement('div'); d.className = 'item';
+            d.innerHTML = `<div class="item-no">${s.no}</div><div style="flex:1"><b>${s.title}</b><br><small opacity="0.5">${s.cat}</small></div>`;
+            d.onclick = () => openViewer(songs.indexOf(s));
             box.appendChild(d);
         });
     }
 
-    function renderCats() {
-        const box = document.getElementById('listUI');
-        box.innerHTML = `<h3>Categories</h3>`;
-        cats.forEach(c => {
-            let d = document.createElement('div');
-            d.className = 'item';
-            d.innerHTML = `<div style="flex:1; font-weight:bold;">${c}</div><div style="opacity:0.5">→</div>`;
-            d.onclick = () => { let filtered = songs.filter(s => s.cat === c); render(filtered, c); };
-            box.appendChild(d);
-        });
-    }
-
-    function openView(idx) {
-        currentIdx = idx; scale = 1;
-        let s = songs[idx];
-        document.getElementById('vTitle').innerText = s.no + ". " + s.title;
-        const fBtn = document.getElementById('favBtn');
-        if(s.isFav) fBtn.classList.add('is-fav'); else fBtn.classList.remove('is-fav');
-        let b = document.getElementById('zoomBox');
-        b.style.transform = `scale(1)`;
-        if(s.type === 'img') b.innerHTML = `<img src="${s.content}" style="width:100%;">`;
-        else b.innerHTML = `<div style="white-space:pre-wrap; font-size:1.3rem; line-height:1.6; text-align:left;">${s.content}</div>`;
+    function openViewer(index) {
+        currentSongIndex = index;
+        let song = songs[index];
+        document.getElementById('vTitle').innerText = `${song.no}. ${song.title}`;
+        document.getElementById('vFavBtn').innerText = song.isFav ? '❤️' : '🤍';
+        let html = `<div id="vText" style="white-space:pre-wrap; text-align:left; line-height:1.6;">${song.content}</div>`;
+        if(song.img) html += `<img id="vImage" src="${song.img}">`;
+        document.getElementById('vContent').innerHTML = html;
+        applyZoom();
         document.getElementById('viewer').style.display = 'flex';
+        document.getElementById('vScroll').scrollTop = 0;
+    }
+
+    function zoom(val) { currentScale = Math.max(0.5, Math.min(4, currentScale + val)); applyZoom(); }
+    function applyZoom() {
+        const txt = document.getElementById('vText');
+        const img = document.getElementById('vImage');
+        if(txt) txt.style.fontSize = currentScale + 'rem';
+        if(img) img.style.width = (currentScale * 90) + '%'; 
     }
 
     function toggleFav() {
-        if(currentIdx === -1) return;
-        songs[currentIdx].isFav = !songs[currentIdx].isFav;
+        songs[currentSongIndex].isFav = !songs[currentSongIndex].isFav;
+        document.getElementById('vFavBtn').innerText = songs[currentSongIndex].isFav ? '❤️' : '🤍';
         localStorage.setItem('kp_songs', JSON.stringify(songs));
-        const fBtn = document.getElementById('favBtn');
-        if(songs[currentIdx].isFav) fBtn.classList.add('is-fav'); else fBtn.classList.remove('is-fav');
     }
 
-    function zoom(v) { scale += v; scale = Math.max(0.5, Math.min(3, scale)); document.getElementById('zoomBox').style.transform = `scale(${scale})`; }
-    function move(d) {
-        let cur = viewList.indexOf(songs[currentIdx]);
-        let nxt = cur + d;
-        if(nxt >= 0 && nxt < viewList.length) openView(songs.indexOf(viewList[nxt]));
+    function navSong(dir) { let newIdx = currentSongIndex + dir; if(newIdx >= 0 && newIdx < songs.length) openViewer(newIdx); }
+    function closeViewer() { document.getElementById('viewer').style.display = 'none'; }
+    function checkPass() { if(document.getElementById('adminPass').value === '1234') { isAdmin = true; sessionStorage.setItem('isAdmin', 'true'); nav('admin'); } else alert("Access Denied"); }
+    function logout() { isAdmin = false; sessionStorage.removeItem('isAdmin'); nav('home'); }
+    
+    function renderCategories() {
+        const sel = document.getElementById('sCat');
+        if(sel) sel.innerHTML = cats.map(c => `<option value="${c}">${c}</option>`).join('');
+        const list = document.getElementById('catList');
+        if(list) list.innerHTML = cats.map(c => `<span style="background:var(--accent); color:white; padding:5px 10px; border-radius:20px; font-size:0.7rem; cursor:pointer;" onclick="removeCat('${c}')">${c} ✕</span>`).join('');
     }
-    function checkPin() { if(document.getElementById('pinField').value === "1234") { authed = true; document.getElementById('unlocked').style.display = 'block'; document.getElementById('locked').style.display = 'none'; hide('pinPop'); renderCatAdmin(); } else alert("Wrong PIN"); }
-    function doLogout() { authed = false; document.getElementById('unlocked').style.display = 'none'; document.getElementById('locked').style.display = 'block'; nav('home'); }
-    function openEdit(idx) {
-        document.getElementById('editIdx').value = idx;
-        tempImg = ""; document.getElementById('ePreview').src = "";
-        if(idx > -1) {
-            let s = songs[idx]; document.getElementById('eNo').value = s.no; document.getElementById('eTitle').value = s.title; document.getElementById('eCat').value = s.cat;
-            if(s.type === 'img') { document.querySelector('input[value="img"]').checked = true; setMode('img'); tempImg = s.content; document.getElementById('ePreview').src = s.content; }
-            else { document.querySelector('input[value="text"]').checked = true; setMode('text'); document.getElementById('eLyrics').value = s.content; }
-            document.getElementById('delBtn').style.display = 'block';
-        } else { document.getElementById('eNo').value = ""; document.getElementById('eTitle').value = ""; document.getElementById('delBtn').style.display = 'none'; setMode('text'); }
-        pop('editPop');
+    
+    function addCategory() { const n = document.getElementById('newCatName').value.trim(); if(n && !cats.includes(n)) { cats.push(n); localStorage.setItem('kp_cats', JSON.stringify(cats)); renderCategories(); document.getElementById('newCatName').value = ''; } }
+    function removeCat(c) { if(confirm(`Delete category: ${c}?`)) { cats = cats.filter(i => i !== c); localStorage.setItem('kp_cats', JSON.stringify(cats)); renderCategories(); } }
+
+    async function saveSong() {
+        const no = document.getElementById('sNo').value;
+        const title = document.getElementById('sTitle').value;
+        const content = document.getElementById('sLyrics').value;
+        const imgFile = document.getElementById('sImg').files[0];
+        if(!no || !title) return alert("Please enter Song Number and Title");
+        let imgBase64 = "";
+        if(imgFile) {
+            imgBase64 = await new Promise(resolve => {
+                const reader = new FileReader();
+                reader.onload = () => resolve(reader.result);
+                reader.readAsDataURL(imgFile);
+            });
+        }
+        songs.push({ no: parseInt(no), title: title.trim(), cat: document.getElementById('sCat').value, content: content.trim(), img: imgBase64, isFav: false });
+        songs.sort((a,b) => a.no - b.no);
+        localStorage.setItem('kp_songs', JSON.stringify(songs));
+        const msg = document.getElementById('saveMsg');
+        msg.style.display = 'block';
+        setTimeout(() => { msg.style.display = 'none'; }, 2000);
+        document.getElementById('sNo').value = ''; document.getElementById('sTitle').value = ''; document.getElementById('sLyrics').value = ''; document.getElementById('sImg').value = '';
     }
-    function saveSong() {
-        let idx = document.getElementById('editIdx').value; let mode = document.querySelector('input[name="m"]:checked').value;
-        let content = (mode === 'text') ? document.getElementById('eLyrics').value : tempImg; if(!content) return alert("Content cannot be empty");
-        let existingFav = (idx > -1 && songs[idx]) ? songs[idx].isFav : false;
-        let obj = { no: document.getElementById('eNo').value, title: document.getElementById('eTitle').value, cat: document.getElementById('eCat').value, type: mode, content: content, isFav: existingFav };
-        if(idx > -1) songs[idx] = obj; else songs.push(obj);
-        songs.sort((a,b) => parseInt(a.no) - parseInt(b.no)); localStorage.setItem('kp_songs', JSON.stringify(songs)); hide('editPop'); nav('songs');
+
+    function exportData() {
+        const blob = new Blob([JSON.stringify({ songs, cats, quote: homeQuote })], { type: 'application/json' });
+        const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+        a.download = `KAIPENG_BACKUP.json`; a.click();
     }
-    function saveCat() { let n = document.getElementById('catNewIn').value; if(n) { cats.push(n); localStorage.setItem('kp_cats', JSON.stringify(cats)); document.getElementById('catNewIn').value = ""; renderCatAdmin(); updateCatDropdown(); } }
-    function renderCatAdmin() { document.getElementById('catAdminList').innerHTML = cats.map((c, i) => `<div style="display:flex; justify-content:space-between; padding:12px; border-bottom:1px solid var(--border); font-size:1.1rem;">${c} <span onclick="delCat(${i})" style="color:red; cursor:pointer; font-weight:bold;">✕</span></div>`).join(''); }
-    function delCat(i) { if(confirm("Delete category?")) { cats.splice(i,1); localStorage.setItem('kp_cats', JSON.stringify(cats)); renderCatAdmin(); updateCatDropdown(); } }
-    function setMode(m) { document.getElementById('eLyrics').style.display = (m==='text')?'block':'none'; document.getElementById('eImgArea').style.display = (m==='img')?'block':'none'; }
-    function handleImg(i) { let r = new FileReader(); r.onload = e => { tempImg = e.target.result; document.getElementById('ePreview').src = tempImg; }; r.readAsDataURL(i.files[0]); }
-    function doSearch() { let q = document.getElementById('search').value.toLowerCase(); if(!q) { nav('home'); return; } viewList = songs.filter(s => s.no.includes(q) || s.title.toLowerCase().includes(q)); render(viewList, "Results"); }
-    function delSong() { if(confirm("Delete song permanently?")) { songs.splice(document.getElementById('editIdx').value, 1); localStorage.setItem('kp_songs', JSON.stringify(songs)); hide('editPop'); nav('songs'); } }
-    function pop(id) { document.getElementById(id).style.display = 'flex'; }
-    function hide(id) { document.getElementById(id).style.display = 'none'; }
-    function closeAll() { document.getElementById('viewer').style.display = 'none'; document.getElementById('adminPanel').style.display = 'none'; }
-    function updateCatDropdown() { document.getElementById('eCat').innerHTML = cats.map(c => `<option value="${c}">${c}</option>`).join(''); }
-    function exportData() { let b = new Blob([JSON.stringify({songs, cats})], {type:'application/json'}); let a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = 'hlabu_backup.json'; a.click(); }
-    function importData(i) { let r = new FileReader(); r.onload = e => { try { let d = JSON.parse(e.target.result); songs = d.songs; cats = d.cats; localStorage.setItem('kp_songs', JSON.stringify(songs)); localStorage.setItem('kp_cats', JSON.stringify(cats)); location.reload(); } catch(err) { alert("Invalid Backup File"); } }; r.readAsText(i.files[0]); }
+
+    function importData(e) {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            const data = JSON.parse(event.target.result);
+            if(data.songs) {
+                songs = data.songs; cats = data.cats || cats;
+                if(data.quote) localStorage.setItem('kp_quote', data.quote);
+                localStorage.setItem('kp_songs', JSON.stringify(songs));
+                localStorage.setItem('kp_cats', JSON.stringify(cats));
+                location.reload();
+            }
+        };
+        reader.readAsText(e.target.files[0]);
+    }
+
+    function handleSearch() {
+        let q = document.getElementById('search').value.toLowerCase().trim();
+        if(!q) return nav('home');
+        nav('list');
+        renderList(songs.filter(s => s.title.toLowerCase().includes(q) || s.no.toString() === q), "Search Results");
+    }
 </script>
 </body>
 </html>
+
