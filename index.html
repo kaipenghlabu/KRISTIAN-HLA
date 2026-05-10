@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>KAIPENG HLA BU - PRO</title>
+    <title>KRISTIAN HLA BU </title>
     <style>
         :root { 
             --app-bg: #f8fafc; --card-bg: #ffffff; --primary: #1e293b;
-            --accent: #b08d6d; --border: #e2e8f0; --text: #1e293b; --whatsapp: #25D366; --danger: #ef4444;
+            --accent: #b08d6d; --border: #e2e8f0; --text: #1e293b; --danger: #ef4444;
+            --whatsapp: #25D366;
         }
         .dark-mode {
             --app-bg: #0f172a; --card-bg: #1e293b; --border: #334155; --text: #f1f5f9;
@@ -15,294 +16,284 @@
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; outline: none; }
         body { font-family: -apple-system, system-ui, sans-serif; background: #2c3e50; margin: 0; height: 100dvh; display: flex; justify-content: center; overflow: hidden; color: var(--text); }
         .shell { width: 100%; max-width: 450px; height: 100%; background: var(--app-bg); display: flex; flex-direction: column; position: relative; }
-        .header { padding: 20px; flex-shrink: 0; z-index: 10; }
-        #mainScroll { flex: 1; overflow-y: auto; padding: 0 20px 100px; scroll-behavior: smooth; }
-        .item { background: var(--card-bg); padding: 18px; border-radius: 12px; margin-bottom: 12px; border: 1px solid var(--border); display: flex; align-items: center; cursor: pointer; }
-        .item-no { width: 50px; font-weight: 800; color: var(--accent); font-size: 1.2rem; }
-        .tabs { position: absolute; bottom: 0; width: 100%; background: var(--card-bg); display: flex; border-top: 1px solid var(--border); padding: 12px 0; z-index: 1000; }
-        .tab { flex: 1; text-align: center; font-size: 10px; font-weight: 900; cursor: pointer; text-transform: uppercase; color: var(--text); opacity: 0.4; }
+        
+        .header { padding: 20px; flex-shrink: 0; border-bottom: 1px solid var(--border); }
+        #mainScroll { flex: 1; overflow-y: auto; padding: 20px; padding-bottom: 100px; }
+        
+        .item { background: var(--card-bg); padding: 15px; border-radius: 12px; margin-bottom: 10px; border: 1px solid var(--border); display: flex; align-items: center; cursor: pointer; }
+        .item-no { width: 45px; font-weight: 800; color: var(--accent); font-size: 1.1rem; }
+        
+        .tabs { position: absolute; bottom: 0; width: 100%; background: var(--card-bg); display: flex; border-top: 1px solid var(--border); padding: 10px 0; z-index: 1000; }
+        .tab { flex: 1; text-align: center; font-size: 10px; font-weight: 900; cursor: pointer; color: var(--text); opacity: 0.4; }
         .tab.active { opacity: 1; color: var(--accent); }
-        .tab span { font-size: 1.5rem; display: block; margin-bottom: 2px; }
-        .btn { width: 100%; padding: 15px; border-radius: 10px; border: none; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; transition: 0.3s; }
-        .input, select, textarea { width: 100%; padding: 15px; margin: 5px 0 15px; border-radius: 8px; border: 1px solid var(--border); font-size: 1rem; background: var(--card-bg); color: var(--text); font-family: inherit; }
-        textarea { height: 120px; }
+        .tab span { font-size: 1.4rem; display: block; }
+        
+        .btn { width: 100%; padding: 14px; border-radius: 8px; border: none; font-weight: bold; cursor: pointer; margin-bottom: 10px; }
+        .input, select, textarea { width: 100%; padding: 14px; margin: 5px 0 15px; border-radius: 8px; border: 1px solid var(--border); background: var(--card-bg); color: var(--text); font-size: 1rem; }
+        
+        /* WHATSAPP SECTION */
+        .contact-box { margin-bottom: 25px; padding: 20px; background: #e7fce3; border-radius: 15px; border: 1px solid #c3eec0; text-align: center; }
+        .dark-mode .contact-box { background: #064e3b; border-color: #065f46; color: #ecfdf5; }
+        .wa-link { background: var(--whatsapp); color: white !important; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 14px; border-radius: 10px; font-weight: bold; }
+
+        /* VIEWER & ZOOM */
         .full-screen { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: var(--app-bg); z-index: 5000; display: none; flex-direction: column; }
         .fs-header { background: var(--primary); color: white; padding: 15px; display: flex; justify-content: space-between; align-items: center; }
-        .admin-section { background: var(--card-bg); padding: 15px; border-radius: 12px; border: 1px solid var(--border); margin-bottom: 20px; }
-        .footer-text { padding: 15px; text-align: center; font-size: 0.7rem; opacity: 0.5; border-top: 1px solid var(--border); }
-        .viewer-nav { display: flex; justify-content: space-between; align-items: center; padding: 10px 15px; background: var(--card-bg); border-bottom: 1px solid var(--border); }
-        .v-btn { padding: 8px 12px; border-radius: 8px; border: 1px solid var(--border); background: var(--app-bg); color: var(--text); font-weight: bold; cursor: pointer; }
-        #vText, #vImage { transition: all 0.2s ease-out; transform-origin: top center; }
-        #vImage { width: 100%; border-radius: 10px; margin-top: 20px; display: block; }
-        #saveMsg { color: #22c55e; font-weight: bold; display: none; margin-top: 10px; text-align: center; font-size: 1.1rem; }
+        
+        .zoom-controls { display: flex; gap: 10px; background: rgba(0,0,0,0.05); padding: 5px 15px; border-radius: 20px; position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%); z-index: 6000; }
+        .z-btn { background: var(--primary); color: white; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 1.2rem; font-weight: bold; cursor: pointer; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+
+        .nav-controls { display: flex; justify-content: space-between; padding: 10px 20px; background: var(--card-bg); border-top: 1px solid var(--border); }
+        .n-btn { background: none; border: 1px solid var(--accent); color: var(--accent); padding: 8px 20px; border-radius: 20px; font-weight: bold; cursor: pointer; }
+
+        .admin-card { background: var(--card-bg); padding: 15px; border-radius: 12px; border: 1px solid var(--border); margin-bottom: 20px; }
+        .admin-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--border); align-items: center; }
+        #imgPreview { width: 100%; max-height: 150px; object-fit: contain; display: none; margin: 10px 0; border: 1px dashed var(--accent); }
+        
+        #vImg { transition: transform 0.2s ease; transform-origin: top center; width: 100%; }
+        #vContent { transition: font-size 0.2s ease; }
     </style>
 </head>
 <body onload="initApp()">
 
 <div class="shell">
-    <div class="header" id="appHeader">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
-            <b style="font-size:1.8rem; letter-spacing:-1px;">HLA BU</b>
-            <div onclick="toggleTheme()" style="cursor:pointer; font-size:1.5rem;">🌓</div>
+    <div class="header">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+            <b style="font-size:1.5rem;">HLA BU PRO</b>
+            <div onclick="toggleTheme()" style="cursor:pointer; font-size:1.3rem;">🌓</div>
         </div>
-        <input type="text" id="search" placeholder="Search by number or title..." oninput="handleSearch()" class="input" style="margin:0;">
+        <input type="text" id="search" placeholder="Search by name or number..." oninput="handleSearch()" class="input" style="margin:0;">
     </div>
 
     <div id="mainScroll">
+        <!-- HOME VIEW -->
         <div id="homeUI">
-            <div style="background:var(--accent); color:white; padding:60px 20px; border-radius:24px; text-align:center;">
-                <h2 id="displayQuote" style="font-style:italic; font-size: 1.6rem; margin:0;">"Lalpa chu hlim takin fak rawh u"</h2>
+            <div style="background:var(--accent); color:white; padding:40px 20px; border-radius:20px; text-align:center; margin-bottom: 20px;">
+                <h2 id="quoteText" style="font-style:italic; font-size: 1.1rem; margin:0;"></h2>
             </div>
-            
-            <div style="margin-top:25px; display: grid; grid-template-columns: 1fr 1fr; gap: 15px;" id="homeGrid"></div>
-
-            <div class="footer-text" style="border:none;">© 2026 KAIPENG HLA BU | KAIPENG EDITION</div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;" id="homeGrid"></div>
         </div>
 
-        <div id="settingsUI" style="display:none; padding-top: 10px;">
-            <h3>Settings</h3>
-            <button onclick="toggleTheme()" class="btn" style="background:var(--card-bg); border:1px solid var(--border); margin-bottom:15px;">Switch Theme</button>
-            <div class="admin-section" style="padding:15px; border-color:var(--whatsapp);">
-                <b style="color:var(--whatsapp);">Song Improvement</b>
-                <button onclick="window.open('https://wa.me/919361094788?text=Suggestion')" class="btn" style="background:var(--whatsapp); color:white; margin-top:10px;">Contact 9361094788</button>
-            </div>
-            <button onclick="nav('admin')" class="btn" style="background:var(--primary); color:white;">Admin Panel</button>
-        </div>
-
-        <div id="adminLoginUI" style="display:none; text-align:center; padding-top:40px;">
-            <h3>Admin Access</h3>
-            <input type="password" id="adminPass" placeholder="Enter Password" class="input">
-            <button onclick="checkPass()" class="btn" style="background:var(--accent); color:white;">Login</button>
-        </div>
-
-        <div id="adminPanelUI" style="display:none; padding-bottom: 50px;">
-            <div style="display:flex; justify-content:space-between; align-items:center;"><h3>Dashboard</h3><button onclick="logout()" style="background:var(--danger); color:white; border:none; padding:5px 10px; border-radius:5px;">Logout</button></div>
-            
-            <div class="admin-section">
-                <b>Home Quote</b>
-                <input type="text" id="quoteInput" placeholder="Enter Home Quote" class="input">
-                <button onclick="updateQuote()" class="btn" style="background:var(--primary); color:white;">Update Quote</button>
-            </div>
-
-            <div class="admin-section">
-                <b>Add Song</b>
-                <input type="number" id="sNo" placeholder="Song Number" class="input">
-                <input type="text" id="sTitle" placeholder="Song Title" class="input">
-                <select id="sCat"></select>
-                <textarea id="sLyrics" placeholder="Paste Lyrics Here..."></textarea>
-                <input type="file" id="sImg" accept="image/*" class="input">
-                <button onclick="saveSong()" class="btn" id="saveBtn" style="background:var(--accent); color:white;">Save Song</button>
-                <div id="saveMsg">Done ✅ Saved Successfully</div>
-            </div>
-
-            <div class="admin-section">
-                <b>Category Editor</b>
-                <input type="text" id="newCatName" placeholder="New Category Name" class="input">
-                <button onclick="addCategory()" class="btn" style="background:var(--primary); color:white;">Add Category</button>
-                <div id="catList" style="display:flex; flex-wrap:wrap; gap:5px; margin-top:10px;"></div>
-            </div>
-
-            <div class="admin-section">
-                <b>Data Management</b>
-                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
-                    <button onclick="exportData()" class="btn" style="background:#4ade80; color:white;">Output (Export)</button>
-                    <button onclick="document.getElementById('importFile').click()" class="btn" style="background:#60a5fa; color:white;">Import File</button>
-                </div>
-                <input type="file" id="importFile" style="display:none;" onchange="importData(event)">
-            </div>
-        </div>
         <div id="listUI" style="display:none;"></div>
+
+        <div id="settingsUI" style="display:none;">
+            <!-- WHATSAPP CONTACT SECTION -->
+            <div class="contact-box">
+                <p style="margin:0 0 10px 0; font-weight: 800;">Hlabu tihchangtlun nan</p>
+                <p style="margin:0 0 15px 0; font-size: 0.85rem; opacity: 0.8; line-height: 1.4;">
+                    Hla ngei adik lo a awm nung ei dik tir thei, kei nang ril thei chasa lang.
+                </p>
+                <a href="https://wa.me/919361094788?text=HlaBu%20Feedback:%20" target="_blank" class="wa-link">
+                    WhatsApp (9361094788)
+                </a>
+            </div>
+
+            <div id="adminLoginUI">
+                <h3 style="margin-top:0;">Admin Access</h3>
+                <input type="password" id="adminPass" placeholder="Enter PIN (Pass)" class="input">
+                <button onclick="checkPass()" class="btn" style="background:var(--accent); color:white;">Unlock Dashboard</button>
+            </div>
+        </div>
+
+        <div id="adminPanelUI" style="display:none;">
+            <div style="display:flex; justify-content:space-between; margin-bottom:15px;">
+                <h3>Editor</h3>
+                <button onclick="logout()" style="background:var(--danger); color:white; border:none; border-radius:5px; padding:5px 10px;">Logout</button>
+            </div>
+            <div class="admin-card">
+                <b>Home Quote</b>
+                <input type="text" id="editQuote" class="input">
+                <button onclick="saveQuote()" class="btn" style="background:var(--primary); color:white;">Update Quote</button>
+            </div>
+            <div class="admin-card">
+                <b>Categories</b>
+                <div style="display:flex; gap:5px;"><input type="text" id="newCat" class="input" style="margin:0;"><button onclick="addCat()" class="btn" style="width:80px; margin:0; background:var(--accent); color:white;">Add</button></div>
+                <div id="catListUI" style="margin-top:10px;"></div>
+            </div>
+            <div class="admin-card" id="editorSection">
+                <b id="editModeLabel">Add New Song</b>
+                <div style="display:flex; gap:10px;"><input type="number" id="sNo" placeholder="No" class="input" style="width:70px;"><input type="text" id="sTitle" placeholder="Title" class="input"></div>
+                <select id="sCat" class="input"></select>
+                <textarea id="sLyrics" placeholder="Lyrics..." rows="4"></textarea>
+                <input type="file" id="sImg" accept="image/*" onchange="preview(event)" class="input">
+                <img id="imgPreview">
+                <button onclick="saveSong()" id="saveBtn" class="btn" style="background:var(--accent); color:white;">Save Song</button>
+                <button onclick="resetForm()" id="cancelBtn" class="btn" style="display:none;">Cancel</button>
+            </div>
+            <div class="admin-card"><b>Song Database</b><div id="adminSongList"></div></div>
+            <div class="admin-card">
+                <b>Backup</b>
+                <button onclick="exportJSON()" class="btn" style="background:#0284c7; color:white;">Export JSON</button>
+                <input type="file" id="fileIn" style="display:none;" onchange="importJSON(event)">
+                <button onclick="document.getElementById('fileIn').click()" class="btn" style="background:#7c3aed; color:white;">Import JSON</button>
+            </div>
+        </div>
     </div>
 
+    <!-- TABS -->
     <div class="tabs">
-        <div class="tab" id="nav-home" onclick="nav('home')"><span>🏠</span>HOME</div>
-        <div class="tab" id="nav-songs" onclick="nav('songs')"><span>🎶</span>SONGS</div>
-        <div class="tab" id="nav-favs" onclick="nav('favs')"><span>❤️</span>FAVS</div>
-        <div class="tab" id="nav-settings" onclick="nav('settings')"><span>⚙️</span>SITTING</div>
+        <div class="tab active" id="t-home" onclick="nav('home')"><span>🏠</span>HOME</div>
+        <div class="tab" id="t-songs" onclick="nav('songs')"><span>🎶</span>LIST</div>
+        <div class="tab" id="t-favs" onclick="nav('favs')"><span>❤️</span>FAVS</div>
+        <div class="tab" id="t-settings" onclick="nav('settings')"><span>⚙️</span>ADMIN</div>
     </div>
 
+    <!-- VIEWER WITH ZOOM & NAV -->
     <div id="viewer" class="full-screen">
         <div class="fs-header">
-            <span id="vTitle"></span>
-            <div style="display:flex; align-items:center; gap:15px;">
-                <span id="vFavBtn" onclick="toggleFav()" style="cursor:pointer;">🤍</span>
-                <button onclick="closeViewer()" style="color:white; background:none; border:none; font-size:1.5rem;">✕</button>
-            </div>
+            <button onclick="closeViewer()" style="background:none; color:white; border:none; font-size:1.5rem;">✕</button>
+            <b id="vHead"></b>
+            <div id="vFav" onclick="toggleFav()" style="font-size:1.5rem; cursor:pointer;">🤍</div>
         </div>
-        <div class="viewer-nav">
-            <button class="v-btn" onclick="navSong(-1)">◀ Prev</button>
-            <div style="display:flex; gap:10px;">
-                <button class="v-btn" onclick="zoom(-0.1)">A-</button>
-                <button class="v-btn" onclick="zoom(0.1)">A+</button>
-            </div>
-            <button class="v-btn" onclick="navSong(1)">Next ▶</button>
+
+        <div id="vScroll" style="flex:1; overflow-y:auto; padding:25px; text-align:center; position:relative;">
+            <div id="vContent" style="white-space:pre-wrap; line-height:1.7; font-size:1.1rem;"></div>
+            <img id="vImg" style="width:100%; display:none;">
         </div>
-        <div id="vScroll" style="flex:1; overflow-x:hidden; overflow-y:auto; padding:20px; text-align:center;">
-            <div id="vContent"></div>
+
+        <div class="zoom-controls">
+            <button class="z-btn" onclick="adjustZoom(-0.1)">−</button>
+            <button class="z-btn" onclick="adjustZoom(0.1)">+</button>
+        </div>
+
+        <div class="nav-controls">
+            <button class="n-btn" onclick="changeSong(-1)">← BACK</button>
+            <button class="n-btn" onclick="changeSong(1)">NEXT →</button>
         </div>
     </div>
 </div>
 
 <script>
-    let songs = JSON.parse(localStorage.getItem('kp_songs')) || [];
-    let cats = JSON.parse(localStorage.getItem('kp_cats')) || ["Hymn", "Chorus", "Youth", "Christmas"];
-    let homeQuote = localStorage.getItem('kp_quote') || `"Lalpa chu hlim takin fak rawh u"`;
-    let isAdmin = sessionStorage.getItem('isAdmin') === 'true';
-    let currentSongIndex = -1;
-    let currentScale = 1.1;
+    let songs = JSON.parse(localStorage.getItem('hlabu_songs')) || [];
+    let cats = JSON.parse(localStorage.getItem('hlabu_cats')) || ["Hymn", "Chorus"];
+    let quote = localStorage.getItem('hlabu_quote') || "Fak rawh u Lalpa chu";
+    let editIdx = -1, curIdx = -1, tempImg = "", currentZoom = 1.0, currentFontSize = 1.1;
 
-    function initApp() { 
-        renderCategories(); 
-        document.getElementById('displayQuote').innerText = homeQuote;
-        document.getElementById('quoteInput').value = homeQuote;
-        nav('home'); 
+    function initApp() {
+        document.getElementById('quoteText').innerText = quote;
+        document.getElementById('editQuote').value = quote;
+        renderHome();
+        renderCatOptions();
     }
-    
+
     function toggleTheme() { document.body.classList.toggle('dark-mode'); }
 
     function nav(p) {
+        const panels = ['homeUI', 'listUI', 'settingsUI', 'adminPanelUI'];
+        panels.forEach(id => document.getElementById(id).style.display = 'none');
         document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-        if(document.getElementById('nav-'+p)) document.getElementById('nav-'+p).classList.add('active');
-        const views = ['homeUI', 'listUI', 'settingsUI', 'adminLoginUI', 'adminPanelUI'];
-        views.forEach(v => document.getElementById(v).style.display = 'none');
-        document.getElementById('appHeader').style.display = (p === 'admin') ? 'none' : 'block';
-        
-        if(p === 'home') { document.getElementById('homeUI').style.display = 'block'; updateHomeGrid(); }
-        else if(p === 'settings') document.getElementById('settingsUI').style.display = 'block';
-        else if(p === 'admin') {
-            document.getElementById('adminPanelUI').style.display = isAdmin ? 'block' : 'none';
-            document.getElementById('adminLoginUI').style.display = isAdmin ? 'none' : 'block';
-        }
-        else {
-            document.getElementById('listUI').style.display = 'block';
-            if(p === 'songs') renderList(songs, "All Songs");
-            if(p === 'favs') renderList(songs.filter(s => s.isFav), "Favorites ❤️");
+        document.getElementById('t-'+p).classList.add('active');
+
+        if(p==='home') { document.getElementById('homeUI').style.display='block'; renderHome(); }
+        if(p==='songs') { document.getElementById('listUI').style.display='block'; renderList(songs, "All Songs"); }
+        if(p==='favs') { document.getElementById('listUI').style.display='block'; renderList(songs.filter(s=>s.fav), "Favorites"); }
+        if(p==='settings') {
+            if(sessionStorage.getItem('auth')) { document.getElementById('adminPanelUI').style.display='block'; renderAdminCats(); renderAdminSongs(); } 
+            else { 
+                document.getElementById('settingsUI').style.display='block'; 
+                document.getElementById('adminLoginUI').style.display='block'; 
+            }
         }
     }
 
-    function updateQuote() {
-        const newQuote = document.getElementById('quoteInput').value.trim();
-        if(newQuote) {
-            homeQuote = newQuote;
-            localStorage.setItem('kp_quote', homeQuote);
-            document.getElementById('displayQuote').innerText = homeQuote;
-            alert("Quote Updated!");
-        }
+    function renderHome() {
+        const g = document.getElementById('homeGrid');
+        g.innerHTML = `<div class="item" style="height:80px; justify-content:center;" onclick="nav('songs')"><b>ALL SONGS</b></div>`;
+        cats.forEach(c => g.innerHTML += `<div class="item" style="height:80px; justify-content:center;" onclick="filterCat('${c}')"><b>${c.toUpperCase()}</b></div>`);
     }
-
-    function updateHomeGrid() {
-        const grid = document.getElementById('homeGrid');
-        grid.innerHTML = `<div class="item" onclick="nav('songs')" style="flex-direction:column; padding:20px;"><span>🎶</span><b>ALL</b></div>`;
-        cats.forEach(c => grid.innerHTML += `<div class="item" onclick="viewCat('${c}')" style="flex-direction:column; padding:20px;"><span>📂</span><b>${c.toUpperCase()}</b></div>`);
-    }
-
-    function viewCat(c) { nav('list'); renderList(songs.filter(s => s.cat === c), c); }
 
     function renderList(data, title) {
-        const box = document.getElementById('listUI');
-        box.innerHTML = `<h3 style="margin-bottom:20px;">${title}</h3>`;
-        const sorted = [...data].sort((a,b) => a.no - b.no);
-        sorted.forEach((s) => {
-            let d = document.createElement('div'); d.className = 'item';
-            d.innerHTML = `<div class="item-no">${s.no}</div><div style="flex:1"><b>${s.title}</b><br><small opacity="0.5">${s.cat}</small></div>`;
-            d.onclick = () => openViewer(songs.indexOf(s));
-            box.appendChild(d);
+        const l = document.getElementById('listUI');
+        l.innerHTML = `<h3>${title}</h3>`;
+        data.sort((a,b)=>a.no-b.no).forEach(s => {
+            const div = document.createElement('div');
+            div.className = 'item';
+            div.innerHTML = `<div class="item-no">${s.no}</div><div><b>${s.title}</b><br><small>${s.cat}</small></div>`;
+            div.onclick = () => openViewer(songs.findIndex(x=>x.no===s.no));
+            l.appendChild(div);
         });
     }
 
-    function openViewer(index) {
-        currentSongIndex = index;
-        let song = songs[index];
-        document.getElementById('vTitle').innerText = `${song.no}. ${song.title}`;
-        document.getElementById('vFavBtn').innerText = song.isFav ? '❤️' : '🤍';
-        let html = `<div id="vText" style="white-space:pre-wrap; text-align:left; line-height:1.6;">${song.content}</div>`;
-        if(song.img) html += `<img id="vImage" src="${song.img}">`;
-        document.getElementById('vContent').innerHTML = html;
-        applyZoom();
-        document.getElementById('viewer').style.display = 'flex';
+    function filterCat(c) { nav('songs'); renderList(songs.filter(s=>s.cat===c), c); }
+
+    function handleSearch() {
+        let q = document.getElementById('search').value.toLowerCase();
+        if(!q) return nav('home');
+        nav('songs');
+        renderList(songs.filter(s=>s.title.toLowerCase().includes(q) || s.no.toString()===q), "Results");
+    }
+
+    function openViewer(i) {
+        if(i < 0 || i >= songs.length) return;
+        curIdx = i; 
+        const s = songs[i];
+        currentZoom = 1.0; 
+        currentFontSize = 1.1;
+        updateZoomUI();
+        document.getElementById('vHead').innerText = "#" + s.no;
+        document.getElementById('vFav').innerText = s.fav ? '❤️' : '🤍';
+        const c = document.getElementById('vContent'), im = document.getElementById('vImg');
+        if(s.img) { c.style.display='none'; im.style.display='block'; im.src=s.img; }
+        else { im.style.display='none'; c.style.display='block'; c.innerText=s.lyric; }
+        document.getElementById('viewer').style.display='flex';
         document.getElementById('vScroll').scrollTop = 0;
     }
 
-    function zoom(val) { currentScale = Math.max(0.5, Math.min(4, currentScale + val)); applyZoom(); }
-    function applyZoom() {
-        const txt = document.getElementById('vText');
-        const img = document.getElementById('vImage');
-        if(txt) txt.style.fontSize = currentScale + 'rem';
-        if(img) img.style.width = (currentScale * 90) + '%'; 
+    function closeViewer() { document.getElementById('viewer').style.display='none'; }
+
+    function adjustZoom(val) {
+        if(songs[curIdx].img) { currentZoom = Math.max(0.5, Math.min(3.0, currentZoom + val)); } 
+        else { currentFontSize = Math.max(0.6, Math.min(3.0, currentFontSize + val)); }
+        updateZoomUI();
+    }
+
+    function updateZoomUI() {
+        document.getElementById('vImg').style.transform = `scale(${currentZoom})`;
+        document.getElementById('vContent').style.fontSize = `${currentFontSize}rem`;
+    }
+
+    function changeSong(dir) {
+        let next = curIdx + dir;
+        if(next >= 0 && next < songs.length) openViewer(next);
     }
 
     function toggleFav() {
-        songs[currentSongIndex].isFav = !songs[currentSongIndex].isFav;
-        document.getElementById('vFavBtn').innerText = songs[currentSongIndex].isFav ? '❤️' : '🤍';
-        localStorage.setItem('kp_songs', JSON.stringify(songs));
+        songs[curIdx].fav = !songs[curIdx].fav;
+        document.getElementById('vFav').innerText = songs[curIdx].fav ? '❤️' : '🤍';
+        localStorage.setItem('hlabu_songs', JSON.stringify(songs));
     }
 
-    function navSong(dir) { let newIdx = currentSongIndex + dir; if(newIdx >= 0 && newIdx < songs.length) openViewer(newIdx); }
-    function closeViewer() { document.getElementById('viewer').style.display = 'none'; }
-    function checkPass() { if(document.getElementById('adminPass').value === '1234') { isAdmin = true; sessionStorage.setItem('isAdmin', 'true'); nav('admin'); } else alert("Access Denied"); }
-    function logout() { isAdmin = false; sessionStorage.removeItem('isAdmin'); nav('home'); }
+    function checkPass() { if(document.getElementById('adminPass').value === '1234') { sessionStorage.setItem('auth', 't'); nav('settings'); } else alert("Wrong PIN"); }
+    function logout() { sessionStorage.clear(); nav('home'); }
+    function saveQuote() { quote = document.getElementById('editQuote').value; localStorage.setItem('hlabu_quote', quote); initApp(); alert("Updated"); }
+    function addCat() { let v = document.getElementById('newCat').value; if(v) { cats.push(v); localStorage.setItem('hlabu_cats', JSON.stringify(cats)); renderAdminCats(); renderCatOptions(); document.getElementById('newCat').value=''; } }
+    function renderAdminCats() { document.getElementById('catListUI').innerHTML = cats.map((c,i)=>`<div class="admin-row"><span>${c}</span><button onclick="delCat(${i})" style="color:red; background:none; border:none;">Del</button></div>`).join(''); }
+    function delCat(i) { cats.splice(i,1); localStorage.setItem('hlabu_cats', JSON.stringify(cats)); renderAdminCats(); }
+    function renderCatOptions() { document.getElementById('sCat').innerHTML = cats.map(c=>`<option value="${c}">${c}</option>`).join(''); }
+    function preview(e) { let r = new FileReader(); r.onload = () => { tempImg = r.result; document.getElementById('imgPreview').src=tempImg; document.getElementById('imgPreview').style.display='block'; }; r.readAsDataURL(e.target.files[0]); }
     
-    function renderCategories() {
-        const sel = document.getElementById('sCat');
-        if(sel) sel.innerHTML = cats.map(c => `<option value="${c}">${c}</option>`).join('');
-        const list = document.getElementById('catList');
-        if(list) list.innerHTML = cats.map(c => `<span style="background:var(--accent); color:white; padding:5px 10px; border-radius:20px; font-size:0.7rem; cursor:pointer;" onclick="removeCat('${c}')">${c} ✕</span>`).join('');
-    }
-    
-    function addCategory() { const n = document.getElementById('newCatName').value.trim(); if(n && !cats.includes(n)) { cats.push(n); localStorage.setItem('kp_cats', JSON.stringify(cats)); renderCategories(); document.getElementById('newCatName').value = ''; } }
-    function removeCat(c) { if(confirm(`Delete category: ${c}?`)) { cats = cats.filter(i => i !== c); localStorage.setItem('kp_cats', JSON.stringify(cats)); renderCategories(); } }
-
-    async function saveSong() {
-        const no = document.getElementById('sNo').value;
-        const title = document.getElementById('sTitle').value;
-        const content = document.getElementById('sLyrics').value;
-        const imgFile = document.getElementById('sImg').files[0];
-        if(!no || !title) return alert("Please enter Song Number and Title");
-        let imgBase64 = "";
-        if(imgFile) {
-            imgBase64 = await new Promise(resolve => {
-                const reader = new FileReader();
-                reader.onload = () => resolve(reader.result);
-                reader.readAsDataURL(imgFile);
-            });
-        }
-        songs.push({ no: parseInt(no), title: title.trim(), cat: document.getElementById('sCat').value, content: content.trim(), img: imgBase64, isFav: false });
-        songs.sort((a,b) => a.no - b.no);
-        localStorage.setItem('kp_songs', JSON.stringify(songs));
-        const msg = document.getElementById('saveMsg');
-        msg.style.display = 'block';
-        setTimeout(() => { msg.style.display = 'none'; }, 2000);
-        document.getElementById('sNo').value = ''; document.getElementById('sTitle').value = ''; document.getElementById('sLyrics').value = ''; document.getElementById('sImg').value = '';
+    function saveSong() {
+        let n = document.getElementById('sNo').value, t = document.getElementById('sTitle').value;
+        if(!n || !t) return alert("Missing fields");
+        let obj = { no:parseInt(n), title:t, cat:document.getElementById('sCat').value, lyric:document.getElementById('sLyrics').value, img:tempImg, fav: editIdx>-1?songs[editIdx].fav:false };
+        if(editIdx>-1) songs[editIdx]=obj; else songs.push(obj);
+        songs.sort((a,b)=>a.no-b.no);
+        localStorage.setItem('hlabu_songs', JSON.stringify(songs));
+        resetForm(); renderAdminSongs(); alert("Saved");
     }
 
-    function exportData() {
-        const blob = new Blob([JSON.stringify({ songs, cats, quote: homeQuote })], { type: 'application/json' });
-        const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
-        a.download = `KAIPENG_BACKUP.json`; a.click();
+    function renderAdminSongs() { document.getElementById('adminSongList').innerHTML = songs.map((s,i)=>`<div class="admin-row"><span>#${s.no} ${s.title}</span><div><button onclick="editSong(${i})">Edit</button> <button onclick="delSong(${i})" style="color:red;">Del</button></div></div>`).join(''); }
+    function editSong(i) {
+        editIdx = i; const s = songs[i];
+        document.getElementById('sNo').value=s.no; document.getElementById('sTitle').value=s.title;
+        document.getElementById('sCat').value=s.cat; document.getElementById('sLyrics').value=s.lyric;
+        tempImg = s.img; if(tempImg) { document.getElementById('imgPreview').src=tempImg; document.getElementById('imgPreview').style.display='block'; }
+        document.getElementById('editModeLabel').innerText = "Edit Mode"; document.getElementById('cancelBtn').style.display='block'; document.getElementById('editorSection').scrollIntoView();
     }
-
-    function importData(e) {
-        const reader = new FileReader();
-        reader.onload = (event) => {
-            const data = JSON.parse(event.target.result);
-            if(data.songs) {
-                songs = data.songs; cats = data.cats || cats;
-                if(data.quote) localStorage.setItem('kp_quote', data.quote);
-                localStorage.setItem('kp_songs', JSON.stringify(songs));
-                localStorage.setItem('kp_cats', JSON.stringify(cats));
-                location.reload();
-            }
-        };
-        reader.readAsText(e.target.files[0]);
-    }
-
-    function handleSearch() {
-        let q = document.getElementById('search').value.toLowerCase().trim();
-        if(!q) return nav('home');
-        nav('list');
-        renderList(songs.filter(s => s.title.toLowerCase().includes(q) || s.no.toString() === q), "Search Results");
-    }
+    function delSong(i) { if(confirm("Delete?")) { songs.splice(i,1); localStorage.setItem('hlabu_songs', JSON.stringify(songs)); renderAdminSongs(); } }
+    function resetForm() { editIdx = -1; tempImg = ""; document.getElementById('sNo').value=''; document.getElementById('sTitle').value=''; document.getElementById('sLyrics').value=''; document.getElementById('imgPreview').style.display='none'; document.getElementById('cancelBtn').style.display='none'; document.getElementById('editModeLabel').innerText="Add New Song"; }
+    function exportJSON() { let data = { songs, cats, quote }; let blob = new Blob([JSON.stringify(data)], {type:'application/json'}); let a = document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='hlabu_backup.json'; a.click(); }
+    function importJSON(e) { let r = new FileReader(); r.onload = (ev) => { let d = JSON.parse(ev.target.result); songs=d.songs; cats=d.cats; quote=d.quote; localStorage.setItem('hlabu_songs', JSON.stringify(songs)); localStorage.setItem('hlabu_cats', JSON.stringify(cats)); localStorage.setItem('hlabu_quote', quote); location.reload(); }; r.readAsText(e.target.files[0]); }
 </script>
 </body>
 </html>
-
